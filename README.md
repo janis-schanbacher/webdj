@@ -1,33 +1,59 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# WebDj
 
-## Available Scripts
+WebDj is a DJ web application.
 
-In the project directory, you can run:
+## Getting started
 
-### `yarn start`
+### Prerequisites
+- [yarn](https://yarnpkg.com/) - dependency manager
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Installation
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Clone the repository
+  ```sh
+  git clone git@github.com:janis-schanbacher/webdj.git
+  ```
+- Install all dependencies from within the repository
+  ```sh
+  cd webdj
+  yarn install
+  ```
 
-### `yarn test`
+## Usage
+- Run the app in development mode
+  ```sh
+  yarn start
+  ```
+- Open [http://localhost:3000](http://localhost:3000) in the browser.
+- Build minified, optminized build in production mode (more information see [deployment](https://facebook.github.io/create-react-app/docs/deployment))
+  ```
+  yarn build
+  ```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Testing
+- Launch test runner in interactive mode
+  ```sh
+  yarn test
+  ```
+- See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## Setup editor
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### EditorConfig
+Webdj is using [EditorConfig](https://editorconfig.org) to ensure all files have the same style and encoding through different editors.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+A plugin might be requiered for your preferred editor to use these settings [EditorConfig](https://editorconfig.org/#download).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Linting
+- Install linter extension to your editor of choice:
+  - **VSCode**: [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+  - **Vim**: [ALE (Asynchronous Lint Engine)](https://github.com/w0rp/ale)
+- Lint all JavaScript files:
+  ```sh
+  yarn lint
+  ```
 
-### `yarn eject`
+<!-- ### `yarn eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -65,4 +91,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 ### `yarn build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify -->
