@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import { setupSong, playSong } from "./lib/helper/audioHelper.js";
+import { setupSong } from "./lib/helper/audioHelper.js";
 import SongProvider from "./components/SongProvider.jsx";
 import SongMetadata from "./components/SongMetadata.jsx";
+import Player from "./components/Player.jsx";
 
 const App = () => {
   const audioContext = useRef();
@@ -24,22 +25,25 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (!window.AudioContext || window.webkitAudioContext) {
+      alert("Web Audio API is not supported in this browser!");
+      return;
+    }
     audioContext.current = new (window.AudioContext || window.webkitAudioContext)();
     setDefaultSongs();
   }, []);
-
 
   return (
     <div className="App">
       <SongProvider audioContext={audioContext} setTrack={setTrackA} setTrackMeta={setTrackAMeta}>
         <SongMetadata metadata={trackAMeta} />
       </SongProvider>
-      <button type="button" onClick={() => { playSong(audioContext.current, trackA); }}>Play </button>
-
+      <Player audioContext={audioContext.current} audioBuffer={trackA} />
+      ---------------------------
       <SongProvider audioContext={audioContext} setTrack={setTrackB} setTrackMeta={setTrackBMeta}>
         <SongMetadata metadata={trackBMeta} />
       </SongProvider>
-      <button type="button" onClick={() => { playSong(audioContext.current, trackB); }}>Play </button>
+      <Player audioContext={audioContext.current} audioBuffer={trackB} />
     </div>
   );
 };

@@ -5,8 +5,6 @@ import * as mmb from "music-metadata-browser";
 import { setupSong } from "../lib/helper/audioHelper.js";
 
 const SongProvider = ({ children, audioContext, setTrack, setTrackMeta }) => {
-  console.log("Song Provider");
-
   const changeTrack = (song) => {
     mmb.parseBlob(song, { native: true }).then((metadata) => {
       setTrackMeta(metadata.common);
@@ -32,7 +30,13 @@ const SongProvider = ({ children, audioContext, setTrack, setTrackMeta }) => {
       }}
     >
       <label htmlFor="trackAInput" style={{ cursor: "pointer", border: "1px solid #ccc" }}>Select Song</label>
-      <input id="trackAInput" type="file" accept="audio/*" onChange={e => (changeTrack(e.target.files[0]))} style={{ visibility: "hidden" }} />
+      <input
+        id="trackAInput"
+        type="file"
+        accept="audio/*"
+        onChange={e => (changeTrack(e.target.files[0]))}
+        style={{ visibility: "hidden" }}
+      />
       {children}
     </div>
 
