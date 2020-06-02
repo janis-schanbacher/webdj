@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 
 import "./App.css";
 import { setupSong } from "./lib/helper/audioHelper.js";
-import Deck from "./components/Deck.jsx";
+import Deck from "./components/Deck";
 
 const App = () => {
   const audioContext = useRef();

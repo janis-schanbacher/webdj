@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import * as mmb from "music-metadata-browser";
 
-import { setupSong } from "../lib/helper/audioHelper.js";
+import { setupSong } from "../lib/helper/audioHelper";
 
 const SongProvider = ({ children, audioContext, setTrack, setTrackMeta }) => {
   const changeTrack = (song) => {
