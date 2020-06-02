@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 
+import "./App.css";
 import { setupSong } from "./lib/helper/audioHelper.js";
-import SongProvider from "./components/SongProvider.jsx";
-import SongMetadata from "./components/SongMetadata.jsx";
-import Player from "./components/Player.jsx";
+import Deck from "./components/Deck.jsx";
 
 const App = () => {
   const audioContext = useRef();
@@ -35,15 +34,20 @@ const App = () => {
 
   return (
     <div className="App">
-      <SongProvider audioContext={audioContext} setTrack={setTrackA} setTrackMeta={setTrackAMeta}>
-        <SongMetadata metadata={trackAMeta} />
-      </SongProvider>
-      <Player audioContext={audioContext.current} audioBuffer={trackA} />
-      ---------------------------
-      <SongProvider audioContext={audioContext} setTrack={setTrackB} setTrackMeta={setTrackBMeta}>
-        <SongMetadata metadata={trackBMeta} />
-      </SongProvider>
-      <Player audioContext={audioContext.current} audioBuffer={trackB} />
+      <Deck
+        audioContext={audioContext}
+        audioBuffer={trackA}
+        setTrack={setTrackA}
+        metadata={trackAMeta}
+        setTrackMeta={setTrackAMeta}
+      />
+      <Deck
+        audioContext={audioContext}
+        audioBuffer={trackB}
+        setTrack={setTrackB}
+        metadata={trackBMeta}
+        setTrackMeta={setTrackBMeta}
+      />
     </div>
   );
 };

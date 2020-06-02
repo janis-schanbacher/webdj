@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { Button } from "antd";
+import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 
 const Player = ({ audioContext, audioBuffer }) => {
   const [bufferSource, setBufferSource] = useState(null);
@@ -47,8 +49,12 @@ const Player = ({ audioContext, audioBuffer }) => {
 
   return (
     <div>
-      <button type="button" onClick={play}>Play</button>
-      <button type="button" onClick={pause}>Pause</button>
+      <Button onClick={play}>
+        <PlayCircleOutlined />
+      </Button>
+      <Button onClick={pause}>
+        <PauseCircleOutlined />
+      </Button>
     </div>
   );
 };

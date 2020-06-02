@@ -29,14 +29,16 @@ const SongProvider = ({ children, audioContext, setTrack, setTrackMeta }) => {
         changeTrack(e.dataTransfer.files[0]);
       }}
     >
-      <label htmlFor="trackAInput" style={{ cursor: "pointer", border: "1px solid #ccc" }}>Select Song</label>
-      <input
-        id="trackAInput"
-        type="file"
-        accept="audio/*"
-        onChange={e => (changeTrack(e.target.files[0]))}
-        style={{ visibility: "hidden" }}
-      />
+      <label className="ant-btn" htmlFor="trackAInput">
+        Select Song
+        <input
+          id="trackAInput"
+          type="file"
+          accept="audio/*"
+          onChange={e => (changeTrack(e.target.files[0]))}
+          style={{ display: "none" }}
+        />
+      </label>
       {children}
     </div>
 
