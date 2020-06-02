@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Row, Col } from "antd";
 
 import "./App.css";
 import { setupSong } from "./lib/helper/audioHelper.js";
@@ -34,20 +35,26 @@ const App = () => {
 
   return (
     <div className="App">
-      <Deck
-        audioContext={audioContext}
-        audioBuffer={trackA}
-        setTrack={setTrackA}
-        metadata={trackAMeta}
-        setTrackMeta={setTrackAMeta}
-      />
-      <Deck
-        audioContext={audioContext}
-        audioBuffer={trackB}
-        setTrack={setTrackB}
-        metadata={trackBMeta}
-        setTrackMeta={setTrackBMeta}
-      />
+      <Row>
+        <Col span={12}>
+          <Deck
+            audioContext={audioContext}
+            audioBuffer={trackA}
+            setTrack={setTrackA}
+            metadata={trackAMeta}
+            setTrackMeta={setTrackAMeta}
+          />
+        </Col>
+        <Col span={12}>
+          <Deck
+            audioContext={audioContext}
+            audioBuffer={trackB}
+            setTrack={setTrackB}
+            metadata={trackBMeta}
+            setTrackMeta={setTrackBMeta}
+          />
+        </Col>
+      </Row>
     </div>
   );
 };

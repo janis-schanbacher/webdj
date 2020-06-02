@@ -29,7 +29,8 @@ const SongProvider = ({ children, audioContext, setTrack, setTrackMeta }) => {
         changeTrack(e.dataTransfer.files[0]);
       }}
     >
-      <label className="ant-btn" htmlFor="trackAInput">
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label className="ant-btn">
         Select Song
         <input
           id="trackAInput"

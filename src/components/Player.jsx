@@ -31,7 +31,6 @@ const Player = ({ audioContext, audioBuffer }) => {
       setStartedAt(Date.now() - pausedAt);
       source.start(0, pausedAt / 1000);
       setPausedAt(null);
-      console.log("started");
     } else {
       setStartedAt(Date.now());
       source.start();
