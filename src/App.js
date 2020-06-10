@@ -4,13 +4,16 @@ import { Row, Col } from "antd";
 import "./App.css";
 import { setupSong } from "./lib/helper/audioHelper.js";
 import Deck from "./components/Deck";
+import Mixer from "./components/Mixer";
 
 const App = () => {
   const audioContext = useRef();
   const [trackA, setTrackA] = useState(null);
   const [trackAMeta, setTrackAMeta] = useState({ title: "", artist: "", bpm: 0 });
+  const [volumeA, setVolumeA] = useState(1);
   const [trackB, setTrackB] = useState(null);
   const [trackBMeta, setTrackBMeta] = useState({ title: "", artist: "", bpm: 0 });
+  const [volumeB, setVolumeB] = useState(1);
 
   /**
    * Set default songs which are relesed under a Creative Commons license for noncommercial usage.
@@ -36,19 +39,27 @@ const App = () => {
   return (
     <div className="App">
       <Row>
-        <Col span={12}>
+        <Col span={10}>
           <Deck
             audioContext={audioContext}
             audioBuffer={trackA}
+            volume={volumeA}
             setTrack={setTrackA}
             metadata={trackAMeta}
             setTrackMeta={setTrackAMeta}
           />
         </Col>
-        <Col span={12}>
+        <Col span={4}>
+          <Mixer
+            setVolumeA={setVolumeA}
+            setVolumeB={setVolumeB}
+          />
+        </Col>
+        <Col span={10}>
           <Deck
             audioContext={audioContext}
             audioBuffer={trackB}
+            volume={volumeB}
             setTrack={setTrackB}
             metadata={trackBMeta}
             setTrackMeta={setTrackBMeta}

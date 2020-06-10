@@ -3,10 +3,23 @@ import PropTypes from "prop-types";
 import { Button } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 
-const Player = ({ audioContext, audioBuffer }) => {
+const Player = ({ audioContext, audioBuffer, volume }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
+  const createGainNode = () => {
+    if (audioContext == null) return null;
+    return audioContext.createGain();
+  };
+  const [gainNode] = useState(createGainNode());
+
+  useEffect(() => {
+    gainNode.connect(audioContext.destination);
+  }, [audioContext.destination, gainNode]);
+
+  useEffect(() => {
+    gainNode.gain.value = volume;
+  }, [gainNode.gain.value, volume]);
 
   // Stop playing and reset current position on song change
   useEffect(() => {
@@ -25,7 +38,7 @@ const Player = ({ audioContext, audioBuffer }) => {
     const source = audioContext.createBufferSource();
     setBufferSource(source);
     source.buffer = audioBuffer;
-    source.connect(audioContext.destination);
+    source.connect(gainNode);
 
     if (pausedAt) {
       setStartedAt(Date.now() - pausedAt);
@@ -59,13 +72,14 @@ const Player = ({ audioContext, audioBuffer }) => {
 };
 
 Player.propTypes = {
-  audioContext: PropTypes.object,
+  audioContext: PropTypes.object.isRequired,
   audioBuffer: PropTypes.object,
+  volume: PropTypes.number,
 };
 
 Player.defaultProps = {
-  audioContext: null,
   audioBuffer: null,
+  volume: 1,
 };
 
 export default Player;
