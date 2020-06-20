@@ -6,12 +6,12 @@ import SongMetadata from "./SongMetadata";
 import Player from "./Player";
 import { Wrapper } from "./styles/Deck.styles";
 
-const Deck = ({ audioContext, audioBuffer, setTrack, metadata, setTrackMeta, volume }) => (
+const Deck = ({ audioContext, audioBuffer, setTrack, metadata, setTrackMeta, volume, lowShelf, highShelf }) => (
   <Wrapper>
     <SongProvider audioContext={audioContext} setTrack={setTrack} setTrackMeta={setTrackMeta}>
       <SongMetadata metadata={metadata} />
     </SongProvider>
-    {audioContext.current && <Player audioContext={audioContext.current} audioBuffer={audioBuffer} volume={volume} />}
+    {audioContext.current && <Player audioContext={audioContext.current} audioBuffer={audioBuffer} volume={volume} lowSh={lowShelf} highSh={highShelf} />}
   </Wrapper>
 );
 

@@ -3,15 +3,44 @@ import PropTypes from "prop-types";
 import { Button } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 
-const Player = ({ audioContext, audioBuffer, volume }) => {
+const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh}) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
+  const [lowShelf, setLowShelf] = useState(null);
+  const [highShelf, setHighShelf] = useState(null);
+
   const createGainNode = () => {
     if (audioContext == null) return null;
     return audioContext.createGain();
   };
   const [gainNode] = useState(createGainNode());
+
+
+  useEffect(() => {
+    if(audioContext) {
+
+      let low = audioContext.createBiquadFilter();
+      low.type = "lowshelf";
+      low.frequency.value = 100.0;
+      low.gain.value = 0.0;
+      low.connect(gainNode);
+  
+      let high = audioContext.createBiquadFilter();
+      high.type = "highshelf";
+      high.frequency.value = 20000.0;
+      high.gain.value = 0.0;
+      high.connect(low);
+
+      
+
+    setLowShelf(low);
+    setHighShelf(high);
+    }
+  }, [audioContext]);
+
+  
+  
 
   useEffect(() => {
     gainNode.connect(audioContext.destination);
@@ -20,6 +49,19 @@ const Player = ({ audioContext, audioBuffer, volume }) => {
   useEffect(() => {
     gainNode.gain.value = volume;
   }, [gainNode.gain.value, volume]);
+
+  useEffect(() => {
+    if(lowShelf) {
+      lowShelf.gain.value = lowSh;
+      console.log(lowShelf.gain.value)
+    }
+  },[lowSh]);
+
+  useEffect(() => {
+    if (highShelf) {
+      highShelf.gain.value = highSh;
+    }
+  }, [highSh]);
 
   // Stop playing and reset current position on song change
   useEffect(() => {
