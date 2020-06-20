@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import { Button } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 
-const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh}) => {
+const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
   const [lowShelf, setLowShelf] = useState(null);
   const [highShelf, setHighShelf] = useState(null);
+  const [midShelf, setMidShelf] = useState(null);
 
   const createGainNode = () => {
     if (audioContext == null) return null;
@@ -18,29 +19,34 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh}) => {
 
 
   useEffect(() => {
-    if(audioContext) {
-
-      let low = audioContext.createBiquadFilter();
+    if (audioContext) {
+      const low = audioContext.createBiquadFilter();
       low.type = "lowshelf";
       low.frequency.value = 100.0;
       low.gain.value = 0.0;
       low.connect(gainNode);
-  
-      let high = audioContext.createBiquadFilter();
+
+      const high = audioContext.createBiquadFilter();
       high.type = "highshelf";
       high.frequency.value = 20000.0;
       high.gain.value = 0.0;
       high.connect(low);
 
-      
+      const mid = audioContext.createBiquadFilter();
+      mid.type = "peaking";
+      mid.frequency.value = Math.sqrt(100 * 20000);
+      mid.Q.value = mid.frequency.value / (20000 - 100);
+      mid.gain.value = 0.0;
+      mid.connect(high);
 
-    setLowShelf(low);
-    setHighShelf(high);
+      setLowShelf(low);
+      setHighShelf(high);
+      setMidShelf(mid);
     }
   }, [audioContext]);
 
-  
-  
+
+
 
   useEffect(() => {
     gainNode.connect(audioContext.destination);
@@ -51,11 +57,11 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh}) => {
   }, [gainNode.gain.value, volume]);
 
   useEffect(() => {
-    if(lowShelf) {
+    if (lowShelf) {
       lowShelf.gain.value = lowSh;
       console.log(lowShelf.gain.value)
     }
-  },[lowSh]);
+  }, [lowSh]);
 
   useEffect(() => {
     if (highShelf) {
@@ -68,7 +74,7 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh}) => {
     if (bufferSource) bufferSource.stop();
     setStartedAt(null);
     setPausedAt(null);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioBuffer]);
 
   /**
@@ -80,7 +86,7 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh}) => {
     const source = audioContext.createBufferSource();
     setBufferSource(source);
     source.buffer = audioBuffer;
-    source.connect(gainNode);
+    source.connect(midShelf);
 
     if (pausedAt) {
       setStartedAt(Date.now() - pausedAt);
