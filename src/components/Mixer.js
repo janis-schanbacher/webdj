@@ -32,15 +32,18 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowSh, setHighSh }) => {
         <Col span={5}>
           <VolumeSliderWrapper>
             <Slider vertical defaultValue={100} step={1} onChange={value => setGainA(value / 100)} />
+          </VolumeSliderWrapper>
+          <VolumeSliderWrapper>
             <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setLowSh(value)} />
+          </VolumeSliderWrapper>
+
+          <VolumeSliderWrapper>
+            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setHighSh(value)} />
           </VolumeSliderWrapper>
         </Col>
         <Col span={5}>
           <VolumeSliderWrapper>
             <Slider vertical defaultValue={100} step={1} onChange={value => setGainB(value / 100)} />
-          </VolumeSliderWrapper>
-          <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setHighSh(value)} />
           </VolumeSliderWrapper>
         </Col>
         <Col span={24}>

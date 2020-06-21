@@ -22,20 +22,20 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh }) => {
     if (audioContext) {
       const low = audioContext.createBiquadFilter();
       low.type = "lowshelf";
-      low.frequency.value = 100.0;
+      low.frequency.value = 300.0;
       low.gain.value = 0.0;
       low.connect(gainNode);
 
       const high = audioContext.createBiquadFilter();
       high.type = "highshelf";
-      high.frequency.value = 20000.0;
+      high.frequency.value = 2000.0;
       high.gain.value = 0.0;
       high.connect(low);
 
       const mid = audioContext.createBiquadFilter();
       mid.type = "peaking";
-      mid.frequency.value = Math.sqrt(100 * 20000);
-      mid.Q.value = mid.frequency.value / (20000 - 100);
+      mid.frequency.value = Math.sqrt(300 * 2000);
+      mid.Q.value = mid.frequency.value / (2000 - 300);
       mid.gain.value = 0.0;
       mid.connect(high);
 
@@ -44,9 +44,6 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh }) => {
       setMidShelf(mid);
     }
   }, [audioContext]);
-
-
-
 
   useEffect(() => {
     gainNode.connect(audioContext.destination);
@@ -59,7 +56,7 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh }) => {
   useEffect(() => {
     if (lowShelf) {
       lowShelf.gain.value = lowSh;
-      console.log(lowShelf.gain.value)
+      //console.log(lowShelf.gain.value);
     }
   }, [lowSh]);
 
