@@ -11,8 +11,10 @@ const App = () => {
   const [trackA, setTrackA] = useState(null);
   const [trackAMeta, setTrackAMeta] = useState({ title: "", artist: "", bpm: 0 });
   const [volumeA, setVolumeA] = useState(1);
-  const [lowShelf, setLowShelf] = useState(0);
-  const [highShelf, setHighShelf] = useState(0);
+  const [lowShelf, setLowShelfA] = useState(0);
+  const [highShelf, setHighShelfA] = useState(0);
+  const [lowShelfB, setLowShelfB] = useState(0);
+  const [highShelfB, setHighShelfB] = useState(0);
   const [trackB, setTrackB] = useState(null);
   const [trackBMeta, setTrackBMeta] = useState({ title: "", artist: "", bpm: 0 });
   const [volumeB, setVolumeB] = useState(1);
@@ -57,8 +59,10 @@ const App = () => {
           <Mixer
             setVolumeA={setVolumeA}
             setVolumeB={setVolumeB}
-            setLowSh={setLowShelf}
-            setHighSh={setHighShelf}
+            setLowShA={setLowShelfA}
+            setHighShA={setHighShelfA}
+            setLowShB={setLowShelfB}
+            setHighShB={setHighShelfB}
           />
         </Col>
         <Col span={10}>
@@ -66,6 +70,8 @@ const App = () => {
             audioContext={audioContext}
             audioBuffer={trackB}
             volume={volumeB}
+            lowShelf={lowShelfB}
+            highShelf={highShelfB}
             setTrack={setTrackB}
             metadata={trackBMeta}
             setTrackMeta={setTrackBMeta}

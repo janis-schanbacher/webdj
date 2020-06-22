@@ -5,7 +5,7 @@ import { Slider, Row, Col } from "antd";
 import { Wrapper, VolumeSliderWrapper, BalanceSliderWrapper } from "./styles/Mixer.styles";
 import { matches } from "lodash";
 
-const Mixer = ({ setVolumeA, setVolumeB, setLowSh, setHighSh }) => {
+const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setHighShA, setLowShB, setHighShB }) => {
   const [gainA, setGainA] = useState(1);
   const [gainB, setGainB] = useState(1);
   const [crossfade, setCrossfade] = useState(0);
@@ -34,16 +34,21 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowSh, setHighSh }) => {
             <Slider vertical defaultValue={100} step={1} onChange={value => setGainA(value / 100)} />
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setLowSh(value)} />
+            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setLowShA(value)} />
           </VolumeSliderWrapper>
-
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setHighSh(value)} />
+            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setHighShA(value)} />
           </VolumeSliderWrapper>
         </Col>
         <Col span={5}>
           <VolumeSliderWrapper>
             <Slider vertical defaultValue={100} step={1} onChange={value => setGainB(value / 100)} />
+          </VolumeSliderWrapper>
+          <VolumeSliderWrapper>
+            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setLowShB(value)} />
+          </VolumeSliderWrapper>
+          <VolumeSliderWrapper>
+            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setHighShB(value)} />
           </VolumeSliderWrapper>
         </Col>
         <Col span={24}>
