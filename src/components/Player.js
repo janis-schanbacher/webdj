@@ -3,20 +3,21 @@ import PropTypes from "prop-types";
 import { Button } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 
-const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh }) => {
+const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPassIn, highPassIn }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
   const [lowShelf, setLowShelf] = useState(null);
   const [highShelf, setHighShelf] = useState(null);
   const [midShelf, setMidShelf] = useState(null);
+  const [lowPass, setLowPass] = useState(null);
+  const [highPass, setHighPass] = useState(null);
 
   const createGainNode = () => {
     if (audioContext == null) return null;
     return audioContext.createGain();
   };
   const [gainNode] = useState(createGainNode());
-
 
   useEffect(() => {
     if (audioContext) {
@@ -39,9 +40,21 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh }) => {
       mid.gain.value = 0.0;
       mid.connect(high);
 
+      const lowPassFilter = audioContext.createBiquadFilter();
+      lowPassFilter.type = "lowpass";
+      lowPassFilter.frequency.value = 1000;
+      lowPassFilter.connect(mid);
+
+      const highPassFilter = audioContext.createBiquadFilter();
+      highPassFilter.type = "highpass";
+      highPassFilter.frequency.value = 20000;
+      highPassFilter.connect(lowPassFilter);
+
       setLowShelf(low);
       setHighShelf(high);
       setMidShelf(mid);
+      setLowPass(lowPassFilter);
+      setHighPass(highPassFilter);
     }
   }, [audioContext]);
 
@@ -56,15 +69,32 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh }) => {
   useEffect(() => {
     if (lowShelf) {
       lowShelf.gain.value = lowSh;
-      //console.log(lowShelf.gain.value);
     }
   }, [lowSh]);
+
+  useEffect(() => {
+    if (midShelf) {
+      midShelf.gain.value = midSh;
+    }
+  }, [midSh]);
 
   useEffect(() => {
     if (highShelf) {
       highShelf.gain.value = highSh;
     }
   }, [highSh]);
+
+  useEffect(() => {
+    if (lowPass) {
+      lowPass.frequency.value = lowPassIn;
+    }
+  }, [lowPassIn]);
+
+  useEffect(() => {
+    if (highPass) {
+      highPass.frequency.value = highPassIn;
+    }
+  }, [highPassIn]);
 
   // Stop playing and reset current position on song change
   useEffect(() => {
@@ -83,7 +113,7 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, highSh }) => {
     const source = audioContext.createBufferSource();
     setBufferSource(source);
     source.buffer = audioBuffer;
-    source.connect(midShelf);
+    source.connect(highPass);
 
     if (pausedAt) {
       setStartedAt(Date.now() - pausedAt);

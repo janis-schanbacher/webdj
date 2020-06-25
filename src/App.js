@@ -8,16 +8,24 @@ import Mixer from "./components/Mixer";
 
 const App = () => {
   const audioContext = useRef();
+
   const [trackA, setTrackA] = useState(null);
   const [trackAMeta, setTrackAMeta] = useState({ title: "", artist: "", bpm: 0 });
   const [volumeA, setVolumeA] = useState(1);
-  const [lowShelf, setLowShelfA] = useState(0);
-  const [highShelf, setHighShelfA] = useState(0);
-  const [lowShelfB, setLowShelfB] = useState(0);
-  const [highShelfB, setHighShelfB] = useState(0);
+  const [lowShelfA, setLowShelfA] = useState(0);
+  const [midShelfA, setMidShelfA] = useState(0);
+  const [highShelfA, setHighShelfA] = useState(0);
+  const [lowPassA, setLowPassA] = useState(0);
+  const [highPassA, setHighPassA] = useState(0);
+
   const [trackB, setTrackB] = useState(null);
   const [trackBMeta, setTrackBMeta] = useState({ title: "", artist: "", bpm: 0 });
   const [volumeB, setVolumeB] = useState(1);
+  const [lowShelfB, setLowShelfB] = useState(0);
+  const [midShelfB, setMidShelfB] = useState(0);
+  const [highShelfB, setHighShelfB] = useState(0);
+  const [lowPassB, setLowPassB] = useState(0);
+  const [highPassB, setHighPassB] = useState(0);
 
   /**
    * Set default songs which are relesed under a Creative Commons license for noncommercial usage.
@@ -48,8 +56,11 @@ const App = () => {
             audioContext={audioContext}
             audioBuffer={trackA}
             volume={volumeA}
-            lowShelf={lowShelf}
-            highShelf={highShelf}
+            lowShelf={lowShelfA}
+            midShelf={midShelfA}
+            highShelf={highShelfA}
+            lowPass={lowPassA}
+            highPass={highPassA}
             setTrack={setTrackA}
             metadata={trackAMeta}
             setTrackMeta={setTrackAMeta}
@@ -60,9 +71,15 @@ const App = () => {
             setVolumeA={setVolumeA}
             setVolumeB={setVolumeB}
             setLowShA={setLowShelfA}
+            setMidShA={setMidShelfA}
             setHighShA={setHighShelfA}
+            setLowPaA={setLowPassA}
+            setHighPaA={setHighPassA}
             setLowShB={setLowShelfB}
+            setMidShB={setMidShelfB}
             setHighShB={setHighShelfB}
+            setLowPaB={setLowPassB}
+            setHighPaB={setHighPassB}
           />
         </Col>
         <Col span={10}>
@@ -71,7 +88,10 @@ const App = () => {
             audioBuffer={trackB}
             volume={volumeB}
             lowShelf={lowShelfB}
+            midShelf={midShelfB}
             highShelf={highShelfB}
+            lowPass={lowPassB}
+            highPass={highPassB}
             setTrack={setTrackB}
             metadata={trackBMeta}
             setTrackMeta={setTrackBMeta}
