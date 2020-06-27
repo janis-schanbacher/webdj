@@ -25,7 +25,8 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.2",
+    "web-audio-beat-detector": "^8.0.20"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 
-const Player = ({ audioContext, audioBuffer, volume }) => {
+const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync, setStartInSync }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
@@ -26,8 +26,20 @@ const Player = ({ audioContext, audioBuffer, volume }) => {
     if (bufferSource) bufferSource.stop();
     setStartedAt(null);
     setPausedAt(null);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioBuffer]);
+
+  useEffect(() => {
+    if (startInSync && !pausedAt && !startedAt) {
+      const source = audioContext.createBufferSource();
+      setBufferSource(source);
+      source.buffer = audioBuffer;
+      source.connect(gainNode);
+
+      setStartedAt(offset);
+      source.start(0, offset);
+    }
+  }, [startInSync]);
 
   /**
    * Play from start or if paused resume from last position
@@ -61,7 +73,7 @@ const Player = ({ audioContext, audioBuffer, volume }) => {
 
   return (
     <div>
-      <Button onClick={play}>
+      <Button disabled={!ready} onClick={play}>
         <PlayCircleOutlined />
       </Button>
       <Button onClick={pause}>
@@ -75,6 +87,10 @@ Player.propTypes = {
   audioContext: PropTypes.object.isRequired,
   audioBuffer: PropTypes.object,
   volume: PropTypes.number,
+  ready: PropTypes.bool.isRequired,
+  offset: PropTypes.number,
+  startInSync: PropTypes.bool,
+  setStartInSync: PropTypes.func,
 };
 
 Player.defaultProps = {

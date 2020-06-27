@@ -6,12 +6,31 @@ import SongMetadata from "./SongMetadata";
 import Player from "./Player";
 import { Wrapper } from "./styles/Deck.styles";
 
-const Deck = ({ audioContext, audioBuffer, setTrack, metadata, setTrackMeta, volume }) => (
+const Deck = props => (
   <Wrapper>
-    <SongProvider audioContext={audioContext} setTrack={setTrack} setTrackMeta={setTrackMeta}>
-      <SongMetadata metadata={metadata} />
+    <SongProvider
+      audioContext={props.audioContext}
+      setTrack={props.setTrack}
+      setBpm={props.setBpm}
+      setOffset={props.setOffset}
+      setTrackMeta={props.setTrackMeta}
+    >
+      <SongMetadata metadata={props.metadata} />
     </SongProvider>
-    {audioContext.current && <Player audioContext={audioContext.current} audioBuffer={audioBuffer} volume={volume} />}
+    {
+      props.audioContext.current
+      && (
+        <Player
+          audioContext={props.audioContext.current}
+          ready={props.ready}
+          audioBuffer={props.audioBuffer}
+          volume={props.volume}
+          offset={props.offset}
+          startInSync={props.startInSync}
+          setStartInSync={props.setStartInSync}
+        />
+      )
+    }
   </Wrapper>
 );
 
@@ -19,9 +38,15 @@ Deck.propTypes = {
   audioContext: PropTypes.object.isRequired,
   audioBuffer: PropTypes.object,
   setTrack: PropTypes.func.isRequired,
+  setBpm: PropTypes.func.isRequired,
+  setOffset: PropTypes.func.isRequired,
   volume: PropTypes.number,
   metadata: PropTypes.object.isRequired,
   setTrackMeta: PropTypes.func.isRequired,
+  ready: PropTypes.bool.isRequired,
+  offset: PropTypes.number,
+  startInSync: PropTypes.bool,
+  setStartInSync: PropTypes.func,
 };
 
 Deck.defaultProps = {
