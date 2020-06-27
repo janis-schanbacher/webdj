@@ -38,6 +38,9 @@ const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync,
 
       setStartedAt(offset);
       source.start(0, offset);
+    } else if (!startInSync && startedAt) {
+      if (bufferSource) bufferSource.stop();
+      setStartedAt(null);
     }
   }, [startInSync]);
 
@@ -74,10 +77,10 @@ const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync,
   return (
     <div>
       <Button disabled={!ready} onClick={play}>
-        <PlayCircleOutlined />
+        <PlayCircleOutlined/>
       </Button>
-      <Button onClick={pause}>
-        <PauseCircleOutlined />
+      <Button disabled={!ready} onClick={pause}>
+        <PauseCircleOutlined/>
       </Button>
     </div>
   );
