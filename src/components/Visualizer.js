@@ -15,8 +15,8 @@ const Visualizer = ({ audioContext, audioBuffer, isDeckA, play }) => {
 
     const canvas = document.getElementById(`canvas${isDeckA ? "A" : "B"}`);
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#8ACB88";
-    ctx.strokeStyle = "#8ACB88";
+    ctx.fillStyle = "#177ddc";
+    ctx.strokeStyle = "#177ddc";
     ctx.beginPath();
 
     const channel = waveform.channel(0);
@@ -61,7 +61,7 @@ const Visualizer = ({ audioContext, audioBuffer, isDeckA, play }) => {
     }
   });
 
-  const getCursorPosition = (event) => {
+  const handleWaveformClick = (event) => {
     const canvas = document.getElementById(`canvas${isDeckA ? "A" : "B"}`);
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
@@ -73,7 +73,7 @@ const Visualizer = ({ audioContext, audioBuffer, isDeckA, play }) => {
   return (
     <StyledCanvas
       id={`canvas${isDeckA ? "A" : "B"}`}
-      onClick={event => getCursorPosition(event)}
+      onClick={event => handleWaveformClick(event)}
     />
   );
 };
