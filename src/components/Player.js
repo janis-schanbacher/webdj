@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
+import Visualizer from "./Visualizer";
 
-const Player = ({ audioContext, audioBuffer, volume }) => {
+const Player = ({ audioContext, audioBuffer, volume, isDeckA }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
@@ -61,6 +62,14 @@ const Player = ({ audioContext, audioBuffer, volume }) => {
 
   return (
     <div>
+      {audioBuffer != null
+      && (
+        <Visualizer
+          audioContext={audioContext}
+          audioBuffer={audioBuffer}
+          isDeckA={isDeckA}
+        />
+      )}
       <Button onClick={play}>
         <PlayCircleOutlined />
       </Button>
@@ -75,6 +84,7 @@ Player.propTypes = {
   audioContext: PropTypes.object.isRequired,
   audioBuffer: PropTypes.object,
   volume: PropTypes.number,
+  isDeckA: PropTypes.bool.isRequired,
 };
 
 Player.defaultProps = {
