@@ -27,6 +27,24 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLo
     }
   }, [crossfade, gainB, setVolumeB]);
 
+  /*
+  <VolumeSliderWrapper>
+            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setLowShA(value)} />
+  </VolumeSliderWrapper>
+  <VolumeSliderWrapper>
+            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setMidShA(value)} />
+          </VolumeSliderWrapper>
+          <VolumeSliderWrapper>
+            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setHighShA(value)} />
+          </VolumeSliderWrapper>
+          <VolumeSliderWrapper>
+            <Slider vertical defaultValue={20000} step={1} min={0} max={20000} onChange={value => setLowPaA(value)} />
+          </VolumeSliderWrapper>
+          <VolumeSliderWrapper>
+            <Slider vertical defaultValue={0} step={1} min={0} max={20000} onChange={value => setHighPaA(value)} />
+          </VolumeSliderWrapper>
+  */
+
   return (
     <Wrapper>
       <Row justify="space-between">
@@ -35,13 +53,22 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLo
             <Slider vertical defaultValue={100} step={1} onChange={value => setGainA(value / 100)} />
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setLowShA(value)} />
+            <Knob size={100} angleOffset={220} angleRange={280} min={-25} max={25} onChange={value => setLowShA(value)}>
+              <Arc arcWidth={5} color="#FC5A96" />
+              <Pointer width={5} height={40} radius={10} type="rect" color="#FC5A96" />
+            </Knob>
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setMidShA(value)} />
+            <Knob size={100} angleOffset={220} angleRange={280} min={-25} max={25} onChange={value => setMidShA(value)}>
+              <Arc arcWidth={5} color="#FC5A96" />
+              <Pointer width={5} height={40} radius={10} type="rect" color="#FC5A96" />
+            </Knob>
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setHighShA(value)} />
+            <Knob size={100} angleOffset={220} angleRange={280} min={-25} max={25} onChange={value => setHighShA(value)}>
+              <Arc arcWidth={5} color="#FC5A96" />
+              <Pointer width={5} height={40} radius={10} type="rect" color="#FC5A96" />
+            </Knob>
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
             <Slider vertical defaultValue={20000} step={1} min={0} max={20000} onChange={value => setLowPaA(value)} />
@@ -55,13 +82,22 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLo
             <Slider vertical defaultValue={100} step={1} onChange={value => setGainB(value / 100)} />
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setLowShB(value)} />
+            <Knob size={100} angleOffset={220} angleRange={280} min={-25} max={25} onChange={value => setLowShB(value)}>
+              <Arc arcWidth={5} color="#FC5A96" />
+              <Pointer width={5} height={40} radius={10} type="rect" color="#FC5A96" />
+            </Knob>
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setMidShB(value)} />
+            <Knob size={100} angleOffset={220} angleRange={280} min={-25} max={25} onChange={value => setMidShB(value)}>
+              <Arc arcWidth={5} color="#FC5A96" />
+              <Pointer width={5} height={40} radius={10} type="rect" color="#FC5A96" />
+            </Knob>
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setHighShB(value)} />
+            <Knob size={100} angleOffset={220} angleRange={280} min={-25} max={25} onChange={value => setHighShB(value)}>
+              <Arc arcWidth={5} color="#FC5A96" />
+              <Pointer width={5} height={40} radius={10} type="rect" color="#FC5A96" />
+            </Knob>
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
             <Slider vertical defaultValue={20000} step={1} min={0} max={20000} onChange={value => setLowPaB(value)} />
