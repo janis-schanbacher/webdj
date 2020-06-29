@@ -44,10 +44,10 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLo
             <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setHighShA(value)} />
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={1} min={0} max={20000} onChange={value => setLowPaA(value)} />
+            <Slider vertical defaultValue={20000} step={1} min={0} max={20000} onChange={value => setLowPaA(value)} />
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={20000} step={1} min={0} max={20000} onChange={value => setHighPaA(value)} />
+            <Slider vertical defaultValue={0} step={1} min={0} max={20000} onChange={value => setHighPaA(value)} />
           </VolumeSliderWrapper>
         </Col>
         <Col span={5}>
@@ -64,10 +64,10 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLo
             <Slider vertical defaultValue={0} step={0.1} min={-25} max={25} onChange={value => setHighShB(value)} />
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={0} step={1} min={0} max={20000} onChange={value => setLowPaB(value)} />
+            <Slider vertical defaultValue={20000} step={1} min={0} max={20000} onChange={value => setLowPaB(value)} />
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={20000} step={1} min={0} max={20000} onChange={value => setHighPaB(value)} />
+            <Slider vertical defaultValue={0} step={1} min={0} max={20000} onChange={value => setHighPaB(value)} />
           </VolumeSliderWrapper>
         </Col>
         <Col span={24}>
