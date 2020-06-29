@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Button } from "antd";
+import { Button, Slider } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 import Visualizer from "./Visualizer";
 
@@ -8,6 +8,8 @@ const Player = ({ audioContext, audioBuffer, volume, isDeckA }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
+  // const [currTime, setCurrTime] = useState(0);
+
   const createGainNode = () => {
     if (audioContext == null) return null;
     return audioContext.createGain();
@@ -31,17 +33,23 @@ const Player = ({ audioContext, audioBuffer, volume, isDeckA }) => {
   }, [audioBuffer]);
 
   /**
-   * Play from start or if paused resume from last position
+   * Play from start, from startTime or if paused resume from last position.
+   * @param {number} startTime startTime of the audio file in seconds
    */
-  const play = () => {
-    if (startedAt) return;
+  const play = (startTime) => {
+    if (startedAt && !startTime) return;
+    if (startedAt) bufferSource.stop();
 
     const source = audioContext.createBufferSource();
     setBufferSource(source);
     source.buffer = audioBuffer;
     source.connect(gainNode);
 
-    if (pausedAt) {
+    if (startTime) {
+      setStartedAt(new Date().getTime() - startTime * 1000);
+      source.start(0, startTime);
+      setPausedAt(null);
+    } else if (pausedAt) {
       setStartedAt(Date.now() - pausedAt);
       source.start(0, pausedAt / 1000);
       setPausedAt(null);
@@ -60,6 +68,19 @@ const Player = ({ audioContext, audioBuffer, volume, isDeckA }) => {
     setStartedAt(null);
   };
 
+  // const updateCurrTime = () => {
+  //   setCurrTime(Date.now() - startedAt);
+  //   console.log(currTime);
+  // };
+
+  // useEffect(() => {
+  //   if (audioBuffer) console.log(audioBuffer.duration);
+  //   const interval = setInterval(() => {
+  //     updateCurrTime();
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, [audioBuffer]);
+
   return (
     <div>
       {audioBuffer != null
@@ -68,9 +89,13 @@ const Player = ({ audioContext, audioBuffer, volume, isDeckA }) => {
           audioContext={audioContext}
           audioBuffer={audioBuffer}
           isDeckA={isDeckA}
+          play={play}
+          bufferSource={bufferSource}
+          setBufferSource={setBufferSource}
         />
       )}
-      <Button onClick={play}>
+      <Slider value={30} tipFormatter={null} />
+      <Button onClick={() => play()}>
         <PlayCircleOutlined />
       </Button>
       <Button onClick={pause}>

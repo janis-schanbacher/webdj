@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import WaveformData from "waveform-data";
 import { StyledCanvas } from "./styles/Visualizer.styles";
 
-const Visualizer = ({ audioContext, audioBuffer, isDeckA }) => {
+const Visualizer = ({ audioContext, audioBuffer, isDeckA, play }) => {
   const draw = (waveform) => {
     const scaleY = (amplitude, height) => {
       const range = 256;
@@ -61,8 +61,20 @@ const Visualizer = ({ audioContext, audioBuffer, isDeckA }) => {
     }
   });
 
+  const getCursorPosition = (event) => {
+    const canvas = document.getElementById(`canvas${isDeckA ? "A" : "B"}`);
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const progressShare = x / canvas.clientWidth;
+    const startTime = progressShare * audioBuffer.duration;
+    play(startTime);
+  };
+
   return (
-    <StyledCanvas id={`canvas${isDeckA ? "A" : "B"}`} />
+    <StyledCanvas
+      id={`canvas${isDeckA ? "A" : "B"}`}
+      onClick={event => getCursorPosition(event)}
+    />
   );
 };
 
@@ -70,6 +82,7 @@ Visualizer.propTypes = {
   audioContext: PropTypes.object.isRequired,
   audioBuffer: PropTypes.object.isRequired,
   isDeckA: PropTypes.bool.isRequired,
+  play: PropTypes.func.isRequired,
 };
 
 export default Visualizer;
