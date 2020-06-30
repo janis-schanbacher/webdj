@@ -5,4 +5,5 @@ export const StyledCanvas = styled.canvas`
   width: 100%;
   height: 150px;
   background: #141414;
+  cursor: pointer;
 `;

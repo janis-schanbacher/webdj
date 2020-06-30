@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Button, Progress } from "antd";
+import { Button } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 import Visualizer from "./Visualizer";
 
@@ -8,7 +8,6 @@ const Player = ({ audioContext, audioBuffer, volume, isDeckA }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
-  const [progress, setProgress] = useState(0);
 
   const createGainNode = () => {
     if (audioContext == null) return null;
@@ -68,29 +67,6 @@ const Player = ({ audioContext, audioBuffer, volume, isDeckA }) => {
     setStartedAt(null);
   };
 
-  /**
-   * Update progress
-   */
-  // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    const updateProgress = () => {
-      if (pausedAt) {
-        setProgress(((pausedAt - startedAt) / 1000) / audioBuffer.duration);
-      } else if (startedAt) {
-        setProgress(((Date.now() - startedAt) / 1000) / audioBuffer.duration);
-      } else {
-        setProgress(0);
-      }
-    };
-
-    if (startedAt) {
-      const interval = setInterval(() => {
-        updateProgress();
-      }, 2000);
-      return () => clearInterval(interval);
-    } if (pausedAt) updateProgress();
-  }, [startedAt, pausedAt, audioBuffer]);
-
   return (
     <div>
       {audioBuffer != null
@@ -100,11 +76,10 @@ const Player = ({ audioContext, audioBuffer, volume, isDeckA }) => {
           audioBuffer={audioBuffer}
           isDeckA={isDeckA}
           play={play}
-          bufferSource={bufferSource}
-          setBufferSource={setBufferSource}
+          startedAt={startedAt}
+          pausedAt={pausedAt}
         />
       )}
-      <Progress percent={100 * progress} showInfo={false} />
       <Button onClick={() => play()}>
         <PlayCircleOutlined />
       </Button>
