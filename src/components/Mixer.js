@@ -54,8 +54,24 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLo
             <Slider vertical defaultValue={100} step={1} onChange={value => setGainA(value / 100)} />
           </VolumeSliderWrapper>
           <KnobWrapper>
-            <StyledKnob defaultValue={0} rotateDegrees={180} onChange={value => setHighShA(value)} min={-25} max={25} skin={skins.s11} />
+            <StyledKnob defaultValue={0} rotateDegrees={220} onChange={value => setLowShA(value)} min={-25} max={25} skin={skins.s11} clampMax={280} />
+            Low
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob defaultValue={0} rotateDegrees={220} onChange={value => setMidShA(value)} min={-25} max={25} skin={skins.s11} clampMax={280} />
+            Peak
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob defaultValue={0} rotateDegrees={220} onChange={value => setHighShA(value)} min={-25} max={25} skin={skins.s11} clampMax={280} />
             High
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob defaultValue={20000} rotateDegrees={220} onChange={value => setLowPaA(value)} min={0} max={20000} skin={skins.s11} clampMax={280} />
+            LowPass
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob defaultValue={0} rotateDegrees={220} onChange={value => setHighPaA(value)} min={0} max={20000} skin={skins.s11} clampMax={280} />
+            HighPass
           </KnobWrapper>
           {/* oben "high" (highshelf), in der mitte "mid" (peaking), unten "low" (lowshelf). highpass, lowpass nicht benötigt */}
 
@@ -88,6 +104,26 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLo
           <VolumeSliderWrapper>
             <Slider vertical defaultValue={100} step={1} onChange={value => setGainB(value / 100)} />
           </VolumeSliderWrapper>
+          <KnobWrapper>
+            <StyledKnob defaultValue={0} rotateDegrees={220} onChange={value => setLowShB(value)} min={-25} max={25} skin={skins.s11} clampMax={280} />
+            Low
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob defaultValue={0} rotateDegrees={220} onChange={value => setMidShB(value)} min={-25} max={25} skin={skins.s11} clampMax={280} />
+            Peak
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob defaultValue={0} rotateDegrees={220} onChange={value => setHighShB(value)} min={-25} max={25} skin={skins.s11} clampMax={280} />
+            High
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob defaultValue={20000} rotateDegrees={220} onChange={value => setLowPaB(value)} min={0} max={20000} skin={skins.s11} clampMax={280} />
+            LowPass
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob defaultValue={0} rotateDegrees={220} onChange={value => setHighPaB(value)} min={0} max={20000} skin={skins.s11} clampMax={280} />
+            HighPass
+          </KnobWrapper>
           {/* <VolumeSliderWrapper>
             <Knob size={100} angleOffset={220} angleRange={280} min={-25} max={25} onChange={value => setLowShB(value)}>
               <Arc arcWidth={5} color="#FC5A96" />
