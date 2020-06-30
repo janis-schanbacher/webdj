@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Slider, Row, Col } from "antd";
-import { Pointer, Knob, Value, Arc } from "rc-knob";
+// import { Pointer, Knob, Value, Arc } from "rc-knob";
+import * as skins from "react-rotary-knob-skin-pack";
 
-import { Wrapper, VolumeSliderWrapper, BalanceSliderWrapper } from "./styles/Mixer.styles";
 import { matches } from "lodash";
+import { Wrapper, VolumeSliderWrapper, KnobWrapper, BalanceSliderWrapper, StyledKnob } from "./styles/Mixer.styles";
 
 const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLowPaA, setHighPaA, setLowShB, setMidShB, setHighShB, setLowPaB, setHighPaB }) => {
   const [gainA, setGainA] = useState(1);
@@ -52,7 +53,13 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLo
           <VolumeSliderWrapper>
             <Slider vertical defaultValue={100} step={1} onChange={value => setGainA(value / 100)} />
           </VolumeSliderWrapper>
-          <VolumeSliderWrapper>
+          <KnobWrapper>
+            <StyledKnob defaultValue={0} rotateDegrees={180} onChange={value => setHighShA(value)} min={-25} max={25} skin={skins.s11} />
+            High
+          </KnobWrapper>
+          {/* oben "high" (highshelf), in der mitte "mid" (peaking), unten "low" (lowshelf). highpass, lowpass nicht benötigt */}
+
+          {/* <VolumeSliderWrapper>
             <Knob size={100} angleOffset={220} angleRange={280} min={-25} max={25} onChange={value => setLowShA(value)}>
               <Arc arcWidth={5} color="#FC5A96" />
               <Pointer width={5} height={40} radius={10} type="rect" color="#FC5A96" />
@@ -75,13 +82,13 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLo
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
             <Slider vertical defaultValue={0} step={1} min={0} max={20000} onChange={value => setHighPaA(value)} />
-          </VolumeSliderWrapper>
+          </VolumeSliderWrapper> */}
         </Col>
         <Col span={5}>
           <VolumeSliderWrapper>
             <Slider vertical defaultValue={100} step={1} onChange={value => setGainB(value / 100)} />
           </VolumeSliderWrapper>
-          <VolumeSliderWrapper>
+          {/* <VolumeSliderWrapper>
             <Knob size={100} angleOffset={220} angleRange={280} min={-25} max={25} onChange={value => setLowShB(value)}>
               <Arc arcWidth={5} color="#FC5A96" />
               <Pointer width={5} height={40} radius={10} type="rect" color="#FC5A96" />
@@ -104,7 +111,7 @@ const Mixer = ({ setVolumeA, setVolumeB, setLowShA, setMidShA, setHighShA, setLo
           </VolumeSliderWrapper>
           <VolumeSliderWrapper>
             <Slider vertical defaultValue={0} step={1} min={0} max={20000} onChange={value => setHighPaB(value)} />
-          </VolumeSliderWrapper>
+          </VolumeSliderWrapper> */}
         </Col>
         <Col span={24}>
           <BalanceSliderWrapper>

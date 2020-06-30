@@ -21,9 +21,10 @@
     "lodash": "^4.17.15",
     "music-metadata-browser": "^2.0.5",
     "prop-types": "^15.7.2",
-    "rc-knob": "^1.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-rotary-knob": "^1.1.8",
+    "react-rotary-knob-skin-pack": "^1.0.2",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.2"

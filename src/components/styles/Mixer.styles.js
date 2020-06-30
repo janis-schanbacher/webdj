@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Knob } from "react-rotary-knob";
 
 export const Wrapper = styled.div`
   background: #1C1C1C;
@@ -7,6 +8,16 @@ export const Wrapper = styled.div`
 
 export const VolumeSliderWrapper = styled.div`
   height: 150px;
+`;
+
+export const KnobWrapper = styled.div`
+  height: 100px;
+  width: 100px;
+  text-align: center;
+`;
+
+export const StyledKnob = styled(Knob)`
+  margin: 0 auto;
 `;
 
 export const BalanceSliderWrapper = styled.div`
