@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
+import Visualizer from "./Visualizer";
 
-const Player = ({ audioContext, audioBuffer, volume }) => {
+const Player = ({ audioContext, audioBuffer, volume, isDeckA }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
+
   const createGainNode = () => {
     if (audioContext == null) return null;
     return audioContext.createGain();
@@ -30,17 +32,23 @@ const Player = ({ audioContext, audioBuffer, volume }) => {
   }, [audioBuffer]);
 
   /**
-   * Play from start or if paused resume from last position
+   * Play from start, from startTime or if paused resume from last position.
+   * @param {number} startTime startTime of the audio file in seconds
    */
-  const play = () => {
-    if (startedAt) return;
+  const play = (startTime) => {
+    if (startedAt && !startTime) return;
+    if (startedAt) bufferSource.stop();
 
     const source = audioContext.createBufferSource();
     setBufferSource(source);
     source.buffer = audioBuffer;
     source.connect(gainNode);
 
-    if (pausedAt) {
+    if (startTime) {
+      setStartedAt(new Date().getTime() - startTime * 1000);
+      source.start(0, startTime);
+      setPausedAt(null);
+    } else if (pausedAt) {
       setStartedAt(Date.now() - pausedAt);
       source.start(0, pausedAt / 1000);
       setPausedAt(null);
@@ -61,7 +69,18 @@ const Player = ({ audioContext, audioBuffer, volume }) => {
 
   return (
     <div>
-      <Button onClick={play}>
+      {audioBuffer != null
+      && (
+        <Visualizer
+          audioContext={audioContext}
+          audioBuffer={audioBuffer}
+          isDeckA={isDeckA}
+          play={play}
+          startedAt={startedAt}
+          pausedAt={pausedAt}
+        />
+      )}
+      <Button onClick={() => play()}>
         <PlayCircleOutlined />
       </Button>
       <Button onClick={pause}>
@@ -75,6 +94,7 @@ Player.propTypes = {
   audioContext: PropTypes.object.isRequired,
   audioBuffer: PropTypes.object,
   volume: PropTypes.number,
+  isDeckA: PropTypes.bool.isRequired,
 };
 
 Player.defaultProps = {

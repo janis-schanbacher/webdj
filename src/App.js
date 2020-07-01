@@ -47,6 +47,7 @@ const App = () => {
             setTrack={setTrackA}
             metadata={trackAMeta}
             setTrackMeta={setTrackAMeta}
+            isDeckA
           />
         </Col>
         <Col span={4}>
@@ -63,6 +64,7 @@ const App = () => {
             setTrack={setTrackB}
             metadata={trackBMeta}
             setTrackMeta={setTrackBMeta}
+            isDeckA={false}
           />
         </Col>
       </Row>
