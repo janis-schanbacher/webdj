@@ -99,12 +99,14 @@ const Visualizer = ({ audioContext, audioBuffer, isDeckA, play, startedAt, pause
       }
     };
 
+    updateProgress();
+
     if (startedAt) {
       const interval = setInterval(() => {
         updateProgress();
       }, 2000);
       return () => clearInterval(interval);
-    } if (pausedAt) updateProgress();
+    }
   }, [startedAt, pausedAt, audioBuffer]);
 
   return (
