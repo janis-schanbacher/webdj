@@ -20,8 +20,8 @@ const App = () => {
    */
   const setDefaultSongs = () => {
     // https://ektoplazm.com/free-music/digital-family-vol-7
-    setupSong(audioContext.current, "assets/Medular-Neuroluminescence.mp3").then(song => setTrackA(song));
-    setTrackAMeta({ title: "Neuroluminescence", artist: "Medular", bpm: 128 });
+    setupSong(audioContext.current, "assets/Aerodrömme_-_Crop_Circle.mp3").then(song => setTrackA(song));
+    setTrackAMeta({ title: "Crop Circle", artist: "Aerodrömme", bpm: 128 });
     // https://ektoplazm.com/free-music/flembaz-barking-soda
     setupSong(audioContext.current, "assets/Flembaz-Barking_Soda_(Part_1).mp3").then(song => setTrackB(song));
     setTrackBMeta({ title: "Flembaz-Barking_Soda_(Part_1)", artist: "Flembaz", bpm: 128 });
