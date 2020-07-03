@@ -50,11 +50,12 @@ const Visualizer = ({ audioContext, audioBuffer, isDeckA, play, startedAt, pause
    * Create waveform
    */
   useEffect(() => {
-    if (audioContext != null && audioBuffer != null) {
+    if (audioBuffer != null) {
       const options = {
-        audio_context: audioContext,
         audio_buffer: audioBuffer,
-        scale: 128,
+        scale: 512,
+        amplitude_scale: 0.8,
+        split_channels: true,
       };
 
       new Promise((resolve, reject) => {
@@ -66,10 +67,11 @@ const Visualizer = ({ audioContext, audioBuffer, isDeckA, play, startedAt, pause
           }
         });
       }).then((waveform) => {
-        drawWaveform(waveform);
+        const resampledWaveform = waveform.resample({ width: 500 });
+        drawWaveform(resampledWaveform);
       });
     }
-  });
+  }, [audioBuffer]);
 
   /**
    * Play from position that is specified by the click on the waveform
