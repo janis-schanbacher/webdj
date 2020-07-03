@@ -31,7 +31,7 @@ const App = () => {
       setBpmA(song.bpm);
       setOffsetA(song.offset);
     });
-    setTrackAMeta({ title: "Aerodrömme_-_Crop_Circle", artist: "Aerodrömme", bpm: 128 });
+    setTrackAMeta({ title: "Aerodrömme_-_Crop_Circle", artist: "Aerodrömme", bpm: bpmA });
     // https://ektoplazm.com/free-music/flembaz-barking-soda
     setupSong(audioContext.current, "assets/Flembaz-Barking_Soda_(Part_1).mp3").then((song) => {
       setTrackB(song.song);
@@ -39,7 +39,7 @@ const App = () => {
       setOffsetB(song.offset);
       setReady(true);
     });
-    setTrackBMeta({ title: "Flembaz-Barking_Soda_(Part_1)", artist: "Flembaz", bpm: 128 });
+    setTrackBMeta({ title: "Flembaz-Barking_Soda_(Part_1)", artist: "Flembaz", bpm: bpmB });
   };
 
   useEffect(() => {
@@ -68,6 +68,8 @@ const App = () => {
             offset={offsetA}
             startInSync={startInSync}
             setStartInSync={setStartInSync}
+            syncDelay={true}
+            bpm={bpmA}
           />
         </Col>
         <Col span={4}>
@@ -93,6 +95,8 @@ const App = () => {
             offset={offsetB}
             startInSync={startInSync}
             setStartInSync={setStartInSync}
+            syncDelay={false}
+            bpm={bpmB}
           />
         </Col>
       </Row>

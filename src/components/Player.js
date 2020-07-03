@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Button } from "antd";
-import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
+import { Button, Radio } from "antd";
+import { PlayCircleOutlined, PauseCircleOutlined, LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 
-const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync, setStartInSync }) => {
+const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync, setStartInSync, syncDelay, bpm }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
+  const [moveSelection, setMoveSelection] = useState(1);
+
   const createGainNode = () => {
     if (audioContext == null) return null;
     return audioContext.createGain();
@@ -36,13 +38,46 @@ const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync,
       source.buffer = audioBuffer;
       source.connect(gainNode);
 
-      setStartedAt(offset);
-      source.start(0, offset);
+      setStartedAt(syncDelay
+        ? Date.now() + (offset * 1000) + 4
+        : Date.now() + (offset * 1000));
+      source.start(syncDelay ? 0.4 : 0, offset);
     } else if (!startInSync && startedAt) {
       if (bufferSource) bufferSource.stop();
       setStartedAt(null);
     }
   }, [startInSync]);
+
+  const beatJump = (type) => {
+    if (bufferSource) {
+      const paused = Date.now() - startedAt;
+      const timeToAdd = moveSelection * (60 / bpm);
+
+      if (
+        (type === 2 && (paused / 1000 + timeToAdd) > bufferSource.buffer.duration)
+        || (type === 1 && (paused / 1000 - timeToAdd) < 0)
+      ) {
+        return;
+      }
+
+      bufferSource.stop();
+
+      const source = audioContext.createBufferSource();
+      setBufferSource(source);
+      source.buffer = audioBuffer;
+      source.connect(gainNode);
+
+      if (type === 2) {
+        source.start(0, paused / 1000 + timeToAdd);
+        console.log(paused / 1000 + timeToAdd);
+        setStartedAt(startedAt - (timeToAdd * 1000));
+      } else {
+        source.start(0, paused / 1000 - timeToAdd);
+        console.log(paused / 1000 - timeToAdd);
+        setStartedAt(startedAt + (timeToAdd * 1000));
+      }
+    }
+  };
 
   /**
    * Play from start or if paused resume from last position
@@ -76,11 +111,27 @@ const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync,
 
   return (
     <div>
+      <div>
+        <Radio.Group value={moveSelection} onChange={e => setMoveSelection(e.target.value)}>
+          <Radio.Button value={1}>1</Radio.Button>
+          <Radio.Button value={2}>2</Radio.Button>
+          <Radio.Button value={4}>4</Radio.Button>
+          <Radio.Button value={8}>8</Radio.Button>
+          <Radio.Button value={16}>16</Radio.Button>
+          <Radio.Button value={32}>32</Radio.Button>
+        </Radio.Group>
+        <Button onClick={() => beatJump(1)}>
+          <LeftCircleOutlined />
+        </Button>
+        <Button onClick={() => beatJump(2)}>
+          <RightCircleOutlined />
+        </Button>
+      </div>
       <Button disabled={!ready} onClick={play}>
-        <PlayCircleOutlined/>
+        <PlayCircleOutlined />
       </Button>
       <Button disabled={!ready} onClick={pause}>
-        <PauseCircleOutlined/>
+        <PauseCircleOutlined />
       </Button>
     </div>
   );

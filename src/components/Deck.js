@@ -28,6 +28,8 @@ const Deck = props => (
           offset={props.offset}
           startInSync={props.startInSync}
           setStartInSync={props.setStartInSync}
+          syncDelay={props.syncDelay}
+          bpm={props.bpm}
         />
       )
     }
