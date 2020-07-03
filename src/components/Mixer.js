@@ -1,10 +1,32 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Slider, Row, Col } from "antd";
+import * as skins from "react-rotary-knob-skin-pack";
 
-import { Wrapper, VolumeSliderWrapper, BalanceSliderWrapper } from "./styles/Mixer.styles";
+import {
+  Wrapper,
+  StyledCol,
+  VolumeSliderWrapper,
+  StyledSlider,
+  KnobWrapper,
+  BalanceSliderWrapper,
+  StyledKnob,
+} from "./styles/Mixer.styles";
 
-const Mixer = ({ setVolumeA, setVolumeB }) => {
+const Mixer = ({
+  setVolumeA,
+  setVolumeB,
+  setLowShA,
+  setMidShA,
+  setHighShA,
+  setLowPaA,
+  setHighPaA,
+  setLowShB,
+  setMidShB,
+  setHighShB,
+  setLowPaB,
+  setHighPaB,
+}) => {
   const [gainA, setGainA] = useState(1);
   const [gainB, setGainB] = useState(1);
   const [crossfade, setCrossfade] = useState(0);
@@ -28,16 +50,138 @@ const Mixer = ({ setVolumeA, setVolumeB }) => {
   return (
     <Wrapper>
       <Row justify="space-between">
-        <Col span={5}>
+        <StyledCol span={12}>
+          <KnobWrapper>
+            <StyledKnob
+              defaultValue={0}
+              rotateDegrees={220}
+              onChange={value => setHighShA(value)}
+              min={-25}
+              max={25}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            HIGH
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob
+              defaultValue={0}
+              rotateDegrees={220}
+              onChange={value => setMidShA(value)}
+              min={-25}
+              max={25}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            MID
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob
+              defaultValue={0}
+              rotateDegrees={220}
+              onChange={value => setLowShA(value)}
+              min={-25}
+              max={25}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            LOW
+          </KnobWrapper>
+          {/* <KnobWrapper>
+            <StyledKnob
+              defaultValue={20000}
+              rotateDegrees={220}
+              onChange={value => setLowPaA(value)}
+              min={0}
+              max={20000}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            LowPass
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob
+              defaultValue={0}
+              rotateDegrees={220}
+              onChange={value => setHighPaA(value)}
+              min={0}
+              max={20000}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            HighPass
+          </KnobWrapper> */}
+
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={100} step={1} onChange={value => setGainA(value / 100)} />
+            <StyledSlider vertical defaultValue={100} step={1} onChange={value => setGainA(value / 100)} />
           </VolumeSliderWrapper>
-        </Col>
-        <Col span={5}>
+        </StyledCol>
+        <StyledCol span={12}>
+          <KnobWrapper>
+            <StyledKnob
+              defaultValue={0}
+              rotateDegrees={220}
+              onChange={value => setHighShB(value)}
+              min={-25}
+              max={25}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            HIGH
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob
+              defaultValue={0}
+              rotateDegrees={220}
+              onChange={value => setMidShB(value)}
+              min={-25}
+              max={25}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            MID
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob
+              defaultValue={0}
+              rotateDegrees={220}
+              onChange={value => setLowShB(value)}
+              min={-25}
+              max={25}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            LOW
+          </KnobWrapper>
+          {/* <KnobWrapper>
+            <StyledKnob
+              defaultValue={20000}
+              rotateDegrees={220}
+              onChange={value => setLowPaB(value)}
+              min={0}
+              max={20000}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            LowPass
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob
+              defaultValue={0}
+              rotateDegrees={220}
+              onChange={value => setHighPaB(value)}
+              min={0}
+              max={20000}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            HighPass
+          </KnobWrapper> */}
+
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={100} step={1} onChange={value => setGainB(value / 100)} />
+            <StyledSlider vertical defaultValue={100} step={1} onChange={value => setGainB(value / 100)} />
           </VolumeSliderWrapper>
-        </Col>
+        </StyledCol>
         <Col span={24}>
           <BalanceSliderWrapper>
             <Slider defaultValue={0} step={0.1} min={-1} max={1} onChange={value => setCrossfade(value)} />
@@ -51,6 +195,16 @@ const Mixer = ({ setVolumeA, setVolumeB }) => {
 Mixer.propTypes = {
   setVolumeA: PropTypes.func.isRequired,
   setVolumeB: PropTypes.func.isRequired,
+  setHighShA: PropTypes.func.isRequired,
+  setMidShA: PropTypes.func.isRequired,
+  setLowShA: PropTypes.func.isRequired,
+  setHighPaA: PropTypes.func.isRequired,
+  setLowPaA: PropTypes.func.isRequired,
+  setHighShB: PropTypes.func.isRequired,
+  setMidShB: PropTypes.func.isRequired,
+  setLowShB: PropTypes.func.isRequired,
+  setHighPaB: PropTypes.func.isRequired,
+  setLowPaB: PropTypes.func.isRequired,
 };
 
 export default Mixer;
