@@ -2,7 +2,16 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Slider, Row, Col } from "antd";
 import * as skins from "react-rotary-knob-skin-pack";
-import { Wrapper, VolumeSliderWrapper, KnobWrapper, BalanceSliderWrapper, StyledKnob } from "./styles/Mixer.styles";
+
+import {
+  Wrapper,
+  StyledCol,
+  VolumeSliderWrapper,
+  StyledSlider,
+  KnobWrapper,
+  BalanceSliderWrapper,
+  StyledKnob,
+} from "./styles/Mixer.styles";
 
 const Mixer = ({
   setVolumeA,
@@ -41,7 +50,7 @@ const Mixer = ({
   return (
     <Wrapper>
       <Row justify="space-between">
-        <Col span={5}>
+        <StyledCol span={12}>
           <KnobWrapper>
             <StyledKnob
               defaultValue={0}
@@ -78,21 +87,37 @@ const Mixer = ({
             />
             HIGH
           </KnobWrapper>
-          {
-            /*<KnobWrapper>
-              <StyledKnob defaultValue={20000} rotateDegrees={220} onChange={value => setLowPaA(value)} min={0} max={20000} skin={skins.s12} clampMax={280} />
-              LowPass
-            </KnobWrapper>
-            <KnobWrapper>
-              <StyledKnob defaultValue={0} rotateDegrees={220} onChange={value => setHighPaA(value)} min={0} max={20000} skin={skins.s12} clampMax={280} />
-              HighPass
-            </KnobWrapper>*/
-          }
+
+          {/* <KnobWrapper>
+            <StyledKnob
+              defaultValue={20000}
+              rotateDegrees={220}
+              onChange={value => setLowPaA(value)}
+              min={0}
+              max={20000}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            LowPass
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob
+              defaultValue={0}
+              rotateDegrees={220}
+              onChange={value => setHighPaA(value)}
+              min={0}
+              max={20000}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            HighPass
+          </KnobWrapper> */}
+
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={100} step={1} onChange={value => setGainA(value / 100)} />
+            <StyledSlider vertical defaultValue={100} step={1} onChange={value => setGainA(value / 100)} />
           </VolumeSliderWrapper>
-        </Col>
-        <Col span={5}>
+        </StyledCol>
+        <StyledCol span={12}>
           <KnobWrapper>
             <StyledKnob
               defaultValue={0}
@@ -129,20 +154,35 @@ const Mixer = ({
             />
             HIGH
           </KnobWrapper>
-          {
-            /*<KnobWrapper>
-              <StyledKnob defaultValue={20000} rotateDegrees={220} onChange={value => setLowPaB(value)} min={0} max={20000} skin={skins.s12} clampMax={280} />
-              LowPass
-            </KnobWrapper>
-            <KnobWrapper>
-              <StyledKnob defaultValue={0} rotateDegrees={220} onChange={value => setHighPaB(value)} min={0} max={20000} skin={skins.s12} clampMax={280} />
-              HighPass
-            </KnobWrapper>*/
-          }
+          {/* <KnobWrapper>
+            <StyledKnob
+              defaultValue={20000}
+              rotateDegrees={220}
+              onChange={value => setLowPaB(value)}
+              min={0}
+              max={20000}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            LowPass
+          </KnobWrapper>
+          <KnobWrapper>
+            <StyledKnob
+              defaultValue={0}
+              rotateDegrees={220}
+              onChange={value => setHighPaB(value)}
+              min={0}
+              max={20000}
+              skin={skins.s12}
+              clampMax={280}
+            />
+            HighPass
+          </KnobWrapper> */}
+
           <VolumeSliderWrapper>
-            <Slider vertical defaultValue={100} step={1} onChange={value => setGainB(value / 100)} />
+            <StyledSlider vertical defaultValue={100} step={1} onChange={value => setGainB(value / 100)} />
           </VolumeSliderWrapper>
-        </Col>
+        </StyledCol>
         <Col span={24}>
           <BalanceSliderWrapper>
             <Slider defaultValue={0} step={0.1} min={-1} max={1} onChange={value => setCrossfade(value)} />

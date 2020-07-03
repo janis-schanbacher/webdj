@@ -1,18 +1,28 @@
 import styled from "styled-components";
 import { Knob } from "react-rotary-knob";
+import { Col, Slider } from "antd";
 
 export const Wrapper = styled.div`
   background: #1C1C1C;
   padding: 20px 0 10px 0;
 `;
 
+export const StyledCol = styled(Col)`
+justify-content: center;
+`;
+
 export const VolumeSliderWrapper = styled.div`
+  width: 12px;
   height: 150px;
+  width: 100%;
+`;
+
+export const StyledSlider = styled(Slider)`
+  margin: 0 auto;
 `;
 
 export const KnobWrapper = styled.div`
   height: 100px;
-  width: 100px;
   text-align: center;
 `;
 
