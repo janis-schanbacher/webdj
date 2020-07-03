@@ -41,6 +41,7 @@ const App = () => {
 
   useEffect(() => {
     if (!window.AudioContext || window.webkitAudioContext) {
+      // eslint-disable-next-line no-alert
       alert("Web Audio API is not supported in this browser!");
       return;
     }

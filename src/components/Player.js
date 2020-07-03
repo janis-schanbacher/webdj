@@ -58,6 +58,7 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPa
       setLowPass(lowPassFilter);
       setHighPass(highPassFilter);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioContext]);
 
   useEffect(() => {
@@ -69,34 +70,34 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPa
   }, [gainNode.gain.value, volume]);
 
   useEffect(() => {
-    if (lowShelf) {
-      lowShelf.gain.value = lowSh;
+    if (highShelf) {
+      highShelf.gain.value = highSh;
     }
-  }, [lowSh]);
+  }, [highSh, highShelf]);
 
   useEffect(() => {
     if (midShelf) {
       midShelf.gain.value = midSh;
     }
-  }, [midSh]);
+  }, [midSh, midShelf]);
 
   useEffect(() => {
-    if (highShelf) {
-      highShelf.gain.value = highSh;
+    if (lowShelf) {
+      lowShelf.gain.value = lowSh;
     }
-  }, [highSh]);
+  }, [lowSh, lowShelf]);
 
   useEffect(() => {
     if (lowPass) {
       lowPass.frequency.value = lowPassIn;
     }
-  }, [lowPassIn]);
+  }, [lowPass, lowPassIn]);
 
   useEffect(() => {
     if (highPass) {
       highPass.frequency.value = highPassIn;
     }
-  }, [highPassIn]);
+  }, [highPass, highPassIn]);
 
   // Stop playing and reset current position on song change
   useEffect(() => {
