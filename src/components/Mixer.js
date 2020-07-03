@@ -195,16 +195,16 @@ const Mixer = ({
 Mixer.propTypes = {
   setVolumeA: PropTypes.func.isRequired,
   setVolumeB: PropTypes.func.isRequired,
-  setLowShA: PropTypes.func.isRequired,
-  setMidShA: PropTypes.func.isRequired,
   setHighShA: PropTypes.func.isRequired,
-  setLowPaA: PropTypes.func.isRequired,
+  setMidShA: PropTypes.func.isRequired,
+  setLowShA: PropTypes.func.isRequired,
   setHighPaA: PropTypes.func.isRequired,
-  setLowShB: PropTypes.func.isRequired,
-  setMidShB: PropTypes.func.isRequired,
+  setLowPaA: PropTypes.func.isRequired,
   setHighShB: PropTypes.func.isRequired,
-  setLowPaB: PropTypes.func.isRequired,
+  setMidShB: PropTypes.func.isRequired,
+  setLowShB: PropTypes.func.isRequired,
   setHighPaB: PropTypes.func.isRequired,
+  setLowPaB: PropTypes.func.isRequired,
 };
 
 export default Mixer;

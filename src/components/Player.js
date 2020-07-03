@@ -1,17 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 
-const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPassIn, highPassIn }) => {
+const Player = ({
+  audioContext,
+  audioBuffer,
+  volume,
+  highSh,
+  midSh,
+  lowSh,
+  highPassIn,
+  lowPassIn,
+}) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
-  const [lowShelf, setLowShelf] = useState(null);
   const [highShelf, setHighShelf] = useState(null);
   const [midShelf, setMidShelf] = useState(null);
-  const [lowPass, setLowPass] = useState(null);
+  const [lowShelf, setLowShelf] = useState(null);
   const [highPass, setHighPass] = useState(null);
+  const [lowPass, setLowPass] = useState(null);
   const lowerBandThreshold = 300.0;
   const higherBandThreshold = 2000.0;
 
@@ -58,7 +68,7 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPa
       setLowPass(lowPassFilter);
       setHighPass(highPassFilter);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioContext]);
 
   useEffect(() => {
@@ -73,38 +83,37 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPa
     if (highShelf) {
       highShelf.gain.value = highSh;
     }
-  }, [highSh, highShelf]);
+  }, [highSh]);
 
   useEffect(() => {
     if (midShelf) {
       midShelf.gain.value = midSh;
     }
-  }, [midSh, midShelf]);
+  }, [midSh]);
 
   useEffect(() => {
     if (lowShelf) {
       lowShelf.gain.value = lowSh;
     }
-  }, [lowSh, lowShelf]);
-
-  useEffect(() => {
-    if (lowPass) {
-      lowPass.frequency.value = lowPassIn;
-    }
-  }, [lowPass, lowPassIn]);
+  }, [lowSh]);
 
   useEffect(() => {
     if (highPass) {
       highPass.frequency.value = highPassIn;
     }
-  }, [highPass, highPassIn]);
+  }, [highPassIn]);
+
+  useEffect(() => {
+    if (lowPass) {
+      lowPass.frequency.value = lowPassIn;
+    }
+  }, [lowPassIn]);
 
   // Stop playing and reset current position on song change
   useEffect(() => {
     if (bufferSource) bufferSource.stop();
     setStartedAt(null);
     setPausedAt(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioBuffer]);
 
   /**
@@ -153,21 +162,21 @@ Player.propTypes = {
   audioContext: PropTypes.object.isRequired,
   audioBuffer: PropTypes.object,
   volume: PropTypes.number,
-  lowSh: PropTypes.number,
-  midSh: PropTypes.number,
   highSh: PropTypes.number,
-  lowPassIn: PropTypes.number,
+  midSh: PropTypes.number,
+  lowSh: PropTypes.number,
   highPassIn: PropTypes.number,
+  lowPassIn: PropTypes.number,
 };
 
 Player.defaultProps = {
   audioBuffer: null,
   volume: 1,
-  lowSh: 0,
-  midSh: 0,
   highSh: 0,
-  lowPassIn: 20000,
+  midSh: 0,
+  lowSh: 0,
   highPassIn: 0,
+  lowPassIn: 20000,
 };
 
 export default Player;

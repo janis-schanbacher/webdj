@@ -12,11 +12,12 @@ const Deck = ({
   setTrack,
   metadata,
   setTrackMeta,
-  volume, lowShelf,
-  midShelf,
+  volume,
   highShelf,
-  lowPass,
+  midShelf,
+  lowShelf,
   highPass,
+  lowPass,
 }) => (
   <Wrapper>
     <SongProvider audioContext={audioContext} setTrack={setTrack} setTrackMeta={setTrackMeta}>
@@ -29,11 +30,11 @@ const Deck = ({
             audioContext={audioContext.current}
             audioBuffer={audioBuffer}
             volume={volume}
-            lowSh={lowShelf}
-            midSh={midShelf}
             highSh={highShelf}
-            lowPassIn={lowPass}
+            midSh={midShelf}
+            lowSh={lowShelf}
             highPassIn={highPass}
+            lowPassIn={lowPass}
           />
         )
     }
@@ -47,21 +48,21 @@ Deck.propTypes = {
   volume: PropTypes.number,
   metadata: PropTypes.object.isRequired,
   setTrackMeta: PropTypes.func.isRequired,
-  lowShelf: PropTypes.number,
-  midShelf: PropTypes.number,
   highShelf: PropTypes.number,
-  lowPass: PropTypes.number,
+  midShelf: PropTypes.number,
+  lowShelf: PropTypes.number,
   highPass: PropTypes.number,
+  lowPass: PropTypes.number,
 };
 
 Deck.defaultProps = {
   audioBuffer: null,
   volume: 1,
-  lowShelf: 0,
-  midShelf: 0,
   highShelf: 0,
-  lowPass: 20000,
+  midShelf: 0,
+  lowShelf: 0,
   highPass: 0,
+  lowPass: 20000,
 };
 
 export default Deck;
