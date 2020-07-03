@@ -55,13 +55,13 @@ const Mixer = ({
             <StyledKnob
               defaultValue={0}
               rotateDegrees={220}
-              onChange={value => setLowShA(value)}
+              onChange={value => setHighShA(value)}
               min={-25}
               max={25}
               skin={skins.s12}
               clampMax={280}
             />
-            LOW
+            HIGH
           </KnobWrapper>
           <KnobWrapper>
             <StyledKnob
@@ -79,15 +79,14 @@ const Mixer = ({
             <StyledKnob
               defaultValue={0}
               rotateDegrees={220}
-              onChange={value => setHighShA(value)}
+              onChange={value => setLowShA(value)}
               min={-25}
               max={25}
               skin={skins.s12}
               clampMax={280}
             />
-            HIGH
+            LOW
           </KnobWrapper>
-
           {/* <KnobWrapper>
             <StyledKnob
               defaultValue={20000}
@@ -122,13 +121,13 @@ const Mixer = ({
             <StyledKnob
               defaultValue={0}
               rotateDegrees={220}
-              onChange={value => setLowShB(value)}
+              onChange={value => setHighShB(value)}
               min={-25}
               max={25}
               skin={skins.s12}
               clampMax={280}
             />
-            LOW
+            HIGH
           </KnobWrapper>
           <KnobWrapper>
             <StyledKnob
@@ -146,13 +145,13 @@ const Mixer = ({
             <StyledKnob
               defaultValue={0}
               rotateDegrees={220}
-              onChange={value => setHighShB(value)}
+              onChange={value => setLowShB(value)}
               min={-25}
               max={25}
               skin={skins.s12}
               clampMax={280}
             />
-            HIGH
+            LOW
           </KnobWrapper>
           {/* <KnobWrapper>
             <StyledKnob
@@ -196,17 +195,16 @@ const Mixer = ({
 Mixer.propTypes = {
   setVolumeA: PropTypes.func.isRequired,
   setVolumeB: PropTypes.func.isRequired,
-  setLowShA: PropTypes.number.isRequired,
-  setMidShA: PropTypes.number.isRequired,
-  setHighShA: PropTypes.number.isRequired,
-  setLowPaA: PropTypes.number.isRequired,
-  setHighPaA: PropTypes.number.isRequired,
-  setLowShB: PropTypes.number.isRequired,
-  setMidShB: PropTypes.number.isRequired,
-  setHighShB: PropTypes.number.isRequired,
-  setLowPaB: PropTypes.number.isRequired,
-  setHighPaB: PropTypes.number.isRequired,
-
+  setLowShA: PropTypes.func.isRequired,
+  setMidShA: PropTypes.func.isRequired,
+  setHighShA: PropTypes.func.isRequired,
+  setLowPaA: PropTypes.func.isRequired,
+  setHighPaA: PropTypes.func.isRequired,
+  setLowShB: PropTypes.func.isRequired,
+  setMidShB: PropTypes.func.isRequired,
+  setHighShB: PropTypes.func.isRequired,
+  setLowPaB: PropTypes.func.isRequired,
+  setHighPaB: PropTypes.func.isRequired,
 };
 
 export default Mixer;

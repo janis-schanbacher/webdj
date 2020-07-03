@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button } from "antd";
@@ -69,10 +70,10 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPa
   }, [gainNode.gain.value, volume]);
 
   useEffect(() => {
-    if (lowShelf) {
-      lowShelf.gain.value = lowSh;
+    if (highShelf) {
+      highShelf.gain.value = highSh;
     }
-  }, [lowSh]);
+  }, [highSh]);
 
   useEffect(() => {
     if (midShelf) {
@@ -81,10 +82,10 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPa
   }, [midSh]);
 
   useEffect(() => {
-    if (highShelf) {
-      highShelf.gain.value = highSh;
+    if (lowShelf) {
+      lowShelf.gain.value = lowSh;
     }
-  }, [highSh]);
+  }, [lowSh]);
 
   useEffect(() => {
     if (lowPass) {
@@ -103,7 +104,6 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPa
     if (bufferSource) bufferSource.stop();
     setStartedAt(null);
     setPausedAt(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioBuffer]);
 
   /**

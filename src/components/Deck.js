@@ -18,16 +18,27 @@ const Deck = ({
   lowPass,
   highPass,
 }) => (
-    <Wrapper>
-      <SongProvider audioContext={audioContext} setTrack={setTrack} setTrackMeta={setTrackMeta}>
-        <SongMetadata metadata={metadata} />
-      </SongProvider>
-      {
-        audioContext.current
-        && <Player audioContext={audioContext.current} audioBuffer={audioBuffer} volume={volume} lowSh={lowShelf} midSh={midShelf} highSh={highShelf} lowPassIn={lowPass} highPassIn={highPass} />
-      }
-    </Wrapper>
-  );
+  <Wrapper>
+    <SongProvider audioContext={audioContext} setTrack={setTrack} setTrackMeta={setTrackMeta}>
+      <SongMetadata metadata={metadata} />
+    </SongProvider>
+    {
+      audioContext.current
+        && (
+          <Player
+            audioContext={audioContext.current}
+            audioBuffer={audioBuffer}
+            volume={volume}
+            lowSh={lowShelf}
+            midSh={midShelf}
+            highSh={highShelf}
+            lowPassIn={lowPass}
+            highPassIn={highPass}
+          />
+        )
+    }
+  </Wrapper>
+);
 
 Deck.propTypes = {
   audioContext: PropTypes.object.isRequired,
