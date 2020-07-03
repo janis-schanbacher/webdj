@@ -152,11 +152,21 @@ Player.propTypes = {
   audioContext: PropTypes.object.isRequired,
   audioBuffer: PropTypes.object,
   volume: PropTypes.number,
+  lowSh: PropTypes.number,
+  midSh: PropTypes.number,
+  highSh: PropTypes.number,
+  lowPassIn: PropTypes.number,
+  highPassIn: PropTypes.number,
 };
 
 Player.defaultProps = {
   audioBuffer: null,
   volume: 1,
+  lowSh: 0,
+  midSh: 0,
+  highSh: 0,
+  lowPassIn: 20000,
+  highPassIn: 0,
 };
 
 export default Player;
