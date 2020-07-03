@@ -12,6 +12,8 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPa
   const [midShelf, setMidShelf] = useState(null);
   const [lowPass, setLowPass] = useState(null);
   const [highPass, setHighPass] = useState(null);
+  const lowerBandThreshold = 300.0;
+  const higherBandThreshold = 2000.0;
 
   const createGainNode = () => {
     if (audioContext == null) return null;
@@ -23,31 +25,31 @@ const Player = ({ audioContext, audioBuffer, volume, lowSh, midSh, highSh, lowPa
     if (audioContext) {
       const low = audioContext.createBiquadFilter();
       low.type = "lowshelf";
-      low.frequency.value = 300.0;
+      low.frequency.value = lowerBandThreshold;
       low.gain.value = 0.0;
       low.connect(gainNode);
 
       const high = audioContext.createBiquadFilter();
       high.type = "highshelf";
-      high.frequency.value = 2000.0;
+      high.frequency.value = higherBandThreshold;
       high.gain.value = 0.0;
       high.connect(low);
 
       const mid = audioContext.createBiquadFilter();
       mid.type = "peaking";
-      mid.frequency.value = Math.sqrt(300 * 2000);
-      mid.Q.value = mid.frequency.value / (2000 - 300);
+      mid.frequency.value = Math.sqrt(lowerBandThreshold * higherBandThreshold);
+      mid.Q.value = mid.frequency.value / (lowerBandThreshold - higherBandThreshold);
       mid.gain.value = 0.0;
       mid.connect(high);
 
       const lowPassFilter = audioContext.createBiquadFilter();
       lowPassFilter.type = "lowpass";
-      lowPassFilter.frequency.value = 1000;
+      lowPassFilter.frequency.value = 20000;
       lowPassFilter.connect(mid);
 
       const highPassFilter = audioContext.createBiquadFilter();
       highPassFilter.type = "highpass";
-      highPassFilter.frequency.value = 20000;
+      highPassFilter.frequency.value = 0;
       highPassFilter.connect(lowPassFilter);
 
       setLowShelf(low);
