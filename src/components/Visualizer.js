@@ -1,75 +1,45 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import WaveformData from "waveform-data";
 import { Progress } from "antd";
 import { StyledCanvas } from "./styles/Visualizer.styles";
 
 const Visualizer = ({ audioContext, audioBuffer, isDeckA, play, startedAt, pausedAt }) => {
   const [progress, setProgress] = useState(0);
 
-  /**
-   * Draw waveform in canvas
-   * @param {WaveformData} waveform waveform to be drawn
-   */
-  const drawWaveform = (waveform) => {
-    const scaleY = (amplitude, height) => {
-      const range = 256;
-      const offset = 128;
-
-      return height - ((amplitude + offset) * height) / range;
-    };
-
+  const drawWaveform = () => {
+    const channelData = audioBuffer.getChannelData(0);
     const canvas = document.getElementById(`canvas${isDeckA ? "A" : "B"}`);
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#177ddc";
-    ctx.strokeStyle = "#177ddc";
-    ctx.beginPath();
+    const middle = canvas.height / 2;
+    const { width } = canvas;
+    const step = Math.ceil(channelData.length / width);
+    const color = "#177ddc";
+    ctx.fillStyle = color;
 
-    const channel = waveform.channel(0);
+    for (let i = 0; i < width; i += 1) {
+      let min = 1.0;
+      let max = -1.0;
 
-    // Loop forwards, drawing the upper half of the waveform
-    for (let x = 0; x < waveform.length; x += 1) {
-      const val = channel.max_sample(x);
-      ctx.lineTo(x + 0.5, scaleY(val, canvas.height) + 0.5);
+      // j += 250 intead of +=1 for better performance
+      for (let j = 0; j < step; j += 250) {
+        const datum = channelData[(i * step) + j];
+
+        if (datum < min) {
+          min = datum;
+        } else if (datum > max) {
+          max = datum;
+        }
+
+        ctx.fillRect(i, (1 + min) * middle, 1, Math.max(1, (max - min) * middle));
+      }
     }
-
-    // Loop backwards, drawing the lower half of the waveform
-    for (let x = waveform.length - 1; x >= 0; x -= 1) {
-      const val = channel.min_sample(x);
-
-      ctx.lineTo(x + 0.5, scaleY(val, canvas.height) + 0.5);
-    }
-
-    ctx.closePath();
-    ctx.stroke();
-    ctx.fill();
   };
 
-  /**
-   * Create waveform
-   */
   useEffect(() => {
-    if (audioContext != null && audioBuffer != null) {
-      const options = {
-        audio_context: audioContext,
-        audio_buffer: audioBuffer,
-        scale: 128,
-      };
-
-      new Promise((resolve, reject) => {
-        WaveformData.createFromAudio(options, (err, waveform) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(waveform);
-          }
-        });
-      }).then((waveform) => {
-        drawWaveform(waveform);
-      });
-    }
-  });
+    drawWaveform();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [audioBuffer]);
 
   /**
    * Play from position that is specified by the click on the waveform
@@ -104,7 +74,7 @@ const Visualizer = ({ audioContext, audioBuffer, isDeckA, play, startedAt, pause
     if (startedAt) {
       const interval = setInterval(() => {
         updateProgress();
-      }, 2000);
+      }, 500);
       return () => clearInterval(interval);
     }
   }, [startedAt, pausedAt, audioBuffer]);
