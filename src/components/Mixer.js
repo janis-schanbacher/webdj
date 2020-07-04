@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Slider, Row, Col } from "antd";
+import { Slider, Row, Col, Button } from "antd";
+import { PlayCircleOutlined } from "@ant-design/icons";
 import * as skins from "react-rotary-knob-skin-pack";
+
 
 import {
   Wrapper,
@@ -26,6 +28,9 @@ const Mixer = ({
   setHighShB,
   setLowPaB,
   setHighPaB,
+  ready,
+  setReady,
+  setStartInSync,
 }) => {
   const [gainA, setGainA] = useState(1);
   const [gainB, setGainB] = useState(1);
@@ -46,6 +51,16 @@ const Mixer = ({
       setVolumeB(gainB * (1 + crossfade));
     }
   }, [crossfade, gainB, setVolumeB]);
+
+  const startSyncPlay = () => {
+    setReady(false);
+    setStartInSync(true);
+  };
+
+  const stopSyncPlay = () => {
+    setReady(true);
+    setStartInSync(false);
+  };
 
   return (
     <Wrapper>
@@ -188,6 +203,11 @@ const Mixer = ({
           </BalanceSliderWrapper>
         </Col>
       </Row>
+      <Button disabled={!ready} onClick={startSyncPlay}>
+        <PlayCircleOutlined />
+        Play in Sync
+      </Button>
+      <Button onClick={stopSyncPlay}>Stop</Button>
     </Wrapper>
   );
 };
@@ -205,6 +225,9 @@ Mixer.propTypes = {
   setLowShB: PropTypes.func.isRequired,
   setHighPaB: PropTypes.func.isRequired,
   setLowPaB: PropTypes.func.isRequired,
+  setStartInSync: PropTypes.func.isRequired,
+  setReady: PropTypes.func.isRequired,
+  ready: PropTypes.bool.isRequired,
 };
 
 export default Mixer;

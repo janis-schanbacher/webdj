@@ -3,7 +3,10 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
+
 import Visualizer from "./Visualizer";
+import BeatJumper from "./BeatJumper";
+import Looper from "./Looper";
 
 const Player = ({
   audioContext,
@@ -15,6 +18,11 @@ const Player = ({
   lowSh,
   highPassIn,
   lowPassIn,
+  ready,
+  offset,
+  startInSync,
+  syncDelay,
+  bpm,
 }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
@@ -26,6 +34,7 @@ const Player = ({
   const [lowPass, setLowPass] = useState(null);
   const lowerBandThreshold = 300.0;
   const higherBandThreshold = 2000.0;
+  const [loop, setLoop] = useState(false);
 
   const createGainNode = () => {
     if (audioContext == null) return null;
@@ -118,6 +127,23 @@ const Player = ({
     setPausedAt(null);
   }, [audioBuffer]);
 
+  useEffect(() => {
+    if (startInSync && !pausedAt && !startedAt) {
+      const source = audioContext.createBufferSource();
+      setBufferSource(source);
+      source.buffer = audioBuffer;
+      source.connect(gainNode);
+
+      setStartedAt(syncDelay
+        ? Date.now() + (offset * 1000) + 4
+        : Date.now() + (offset * 1000));
+      source.start(syncDelay ? 0.4 : 0, offset);
+    } else if (!startInSync && startedAt) {
+      if (bufferSource) bufferSource.stop();
+      setStartedAt(null);
+    }
+  }, [startInSync]);
+
   /**
    * Play from start, from startTime or if paused resume from last position.
    * @param {number} startTime startTime of the audio file in seconds
@@ -167,10 +193,29 @@ const Player = ({
           pausedAt={pausedAt}
         />
       )}
-      <Button onClick={() => play()}>
+      <BeatJumper
+        bufferSource={bufferSource}
+        setBufferSource={setBufferSource}
+        startedAt={startedAt}
+        setStartedAt={setStartedAt}
+        bpm={bpm}
+        gainNode={gainNode}
+        audioBuffer={audioBuffer}
+        audioContext={audioContext}
+        loop={loop}
+      />
+      <Looper
+        loop={loop}
+        setLoop={setLoop}
+        bpm={bpm}
+        bufferSource={bufferSource}
+        setStartedAt={setStartedAt}
+        startedAt={startedAt}
+      />
+      <Button disabled={!ready} onClick={play}>
         <PlayCircleOutlined />
       </Button>
-      <Button onClick={pause}>
+      <Button disabled={!ready} onClick={pause}>
         <PauseCircleOutlined />
       </Button>
     </div>
@@ -187,6 +232,11 @@ Player.propTypes = {
   lowSh: PropTypes.number,
   highPassIn: PropTypes.number,
   lowPassIn: PropTypes.number,
+  ready: PropTypes.bool.isRequired,
+  offset: PropTypes.number.isRequired,
+  startInSync: PropTypes.bool.isRequired,
+  syncDelay: PropTypes.bool.isRequired,
+  bpm: PropTypes.number.isRequired,
 };
 
 Player.defaultProps = {

@@ -26,17 +26,33 @@ const App = () => {
   const [highShelfB, setHighShelfB] = useState(0);
   const [lowPassB, setLowPassB] = useState(0);
   const [highPassB, setHighPassB] = useState(0);
+  
+  const [ready, setReady] = useState(false);
+  const [bpmA, setBpmA] = useState();
+  const [bpmB, setBpmB] = useState();
+  const [offsetA, setOffsetA] = useState();
+  const [offsetB, setOffsetB] = useState();
+  const [startInSync, setStartInSync] = useState(false);
 
   /**
    * Set default songs which are relesed under a Creative Commons license for noncommercial usage.
    */
   const setDefaultSongs = () => {
     // https://ektoplazm.com/free-music/digital-family-vol-7
-    setupSong(audioContext.current, "assets/Aerodrömme_-_Crop_Circle.mp3").then(song => setTrackA(song));
-    setTrackAMeta({ title: "Crop Circle", artist: "Aerodrömme", bpm: 128 });
+    setupSong(audioContext.current, "assets/Aerodrömme_-_Crop_Circle.mp3").then((song) => {
+      setTrackA(song.song);
+      setBpmA(song.bpm);
+      setOffsetA(song.offset);
+    });
+    setTrackAMeta({ title: "Aerodrömme_-_Crop_Circle", artist: "Aerodrömme", bpm: bpmA });
     // https://ektoplazm.com/free-music/flembaz-barking-soda
-    setupSong(audioContext.current, "assets/Flembaz-Barking_Soda_(Part_1).mp3").then(song => setTrackB(song));
-    setTrackBMeta({ title: "Flembaz-Barking_Soda_(Part_1)", artist: "Flembaz", bpm: 128 });
+    setupSong(audioContext.current, "assets/Flembaz-Barking_Soda_(Part_1).mp3").then((song) => {
+      setTrackB(song.song);
+      setBpmB(song.bpm);
+      setOffsetB(song.offset);
+      setReady(true);
+    });
+    setTrackBMeta({ title: "Flembaz-Barking_Soda_(Part_1)", artist: "Flembaz", bpm: bpmB });
   };
 
   useEffect(() => {
@@ -66,12 +82,24 @@ const App = () => {
             metadata={trackAMeta}
             setTrackMeta={setTrackAMeta}
             isDeckA
+            setBpm={setBpmA}
+            setOffset={setOffsetA}
+            ready={ready}
+            setReady={setReady}
+            offset={offsetA}
+            startInSync={startInSync}
+            setStartInSync={setStartInSync}
+            syncDelay
+            bpm={bpmA}
           />
         </Col>
         <Col span={4}>
           <Mixer
             setVolumeA={setVolumeA}
             setVolumeB={setVolumeB}
+            ready={ready}
+            setReady={setReady}
+            setStartInSync={setStartInSync}
             setLowShA={setLowShelfA}
             setMidShA={setMidShelfA}
             setHighShA={setHighShelfA}
@@ -98,6 +126,15 @@ const App = () => {
             metadata={trackBMeta}
             setTrackMeta={setTrackBMeta}
             isDeckA={false}
+            setBpm={setBpmB}
+            setOffset={setOffsetB}
+            ready={ready}
+            setReady={setReady}
+            offset={offsetB}
+            startInSync={startInSync}
+            setStartInSync={setStartInSync}
+            syncDelay={false}
+            bpm={bpmB}
           />
         </Col>
       </Row>
