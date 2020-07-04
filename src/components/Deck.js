@@ -6,31 +6,47 @@ import SongMetadata from "./SongMetadata";
 import Player from "./Player";
 import { Wrapper } from "./styles/Deck.styles";
 
-const Deck = props => (
+const Deck = ({
+  audioContext,
+  setTrack,
+  setBpm,
+  setOffset,
+  setTrackMeta,
+  setReady,
+  metadata,
+  ready,
+  audioBuffer,
+  volume,
+  offset,
+  startInSync,
+  setStartInSync,
+  syncDelay,
+  bpm,
+}) => (
   <Wrapper>
     <SongProvider
-      audioContext={props.audioContext}
-      setTrack={props.setTrack}
-      setBpm={props.setBpm}
-      setOffset={props.setOffset}
-      setTrackMeta={props.setTrackMeta}
-      setReady={props.setReady}
+      audioContext={audioContext}
+      setTrack={setTrack}
+      setBpm={setBpm}
+      setOffset={setOffset}
+      setTrackMeta={setTrackMeta}
+      setReady={setReady}
     >
-      <SongMetadata metadata={props.metadata} />
+      <SongMetadata metadata={metadata} />
     </SongProvider>
     {
-      props.audioContext.current
+      audioContext.current
       && (
         <Player
-          audioContext={props.audioContext.current}
-          ready={props.ready}
-          audioBuffer={props.audioBuffer}
-          volume={props.volume}
-          offset={props.offset}
-          startInSync={props.startInSync}
-          setStartInSync={props.setStartInSync}
-          syncDelay={props.syncDelay}
-          bpm={props.bpm}
+          audioContext={audioContext.current}
+          ready={ready}
+          audioBuffer={audioBuffer}
+          volume={volume}
+          offset={offset}
+          startInSync={startInSync}
+          setStartInSync={setStartInSync}
+          syncDelay={syncDelay}
+          bpm={bpm}
         />
       )
     }

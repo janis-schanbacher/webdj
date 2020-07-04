@@ -3,9 +3,17 @@ import { Button, Radio } from "antd";
 import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 
-const BeatJumper = (
-  { bufferSource, setBufferSource, startedAt, bpm, gainNode, setStartedAt, loop, audioBuffer, audioContext },
-) => {
+const BeatJumper = ({
+  bufferSource,
+  setBufferSource,
+  startedAt,
+  bpm,
+  gainNode,
+  setStartedAt,
+  loop,
+  audioBuffer,
+  audioContext,
+}) => {
   const [moveSelection, setMoveSelection] = useState(16);
 
   const beatJump = (type) => {
