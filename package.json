@@ -27,8 +27,7 @@
     "react-rotary-knob-skin-pack": "^1.0.2",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
-    "typescript": "^3.9.2",
-    "waveform-data": "^3.3.2"
+    "typescript": "^3.9.2"
   },
   "resolutions": {
     "rc-textarea": "0.2.6"
