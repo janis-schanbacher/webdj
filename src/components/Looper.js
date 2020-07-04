@@ -21,6 +21,7 @@ const Looper = ({ loop, setLoop, startedAt, setStartedAt, bufferSource, bpm }) =
       setStartedAt(startedAt + (Math.floor(timePassed / loopTime) * loopTime));
       bufferSource.loop = false;
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loop]);
 
   return (

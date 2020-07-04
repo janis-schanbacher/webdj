@@ -64,6 +64,7 @@ const App = () => {
     }
     audioContext.current = new (window.AudioContext || window.webkitAudioContext)();
     setDefaultSongs();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

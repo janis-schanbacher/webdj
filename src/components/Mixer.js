@@ -206,6 +206,7 @@ const Mixer = ({
       </Row>
       <BalanceSliderWrapper>
         <Tooltip title={
+          // eslint-disable-next-line no-nested-ternary
           ready && syncAvailable
             ? "play tracks in sync"
             : ready && !syncAvailable
