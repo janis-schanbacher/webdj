@@ -33,6 +33,7 @@ const App = () => {
   const [offsetA, setOffsetA] = useState();
   const [offsetB, setOffsetB] = useState();
   const [startInSync, setStartInSync] = useState(false);
+  const [syncAvailable, setSyncAvailable] = useState(false);
 
   /**
    * Set default songs which are relesed under a Creative Commons license for noncommercial usage.
@@ -64,6 +65,12 @@ const App = () => {
     audioContext.current = new (window.AudioContext || window.webkitAudioContext)();
     setDefaultSongs();
   }, []);
+
+  useEffect(() => {
+    if (bpmA && bpmB) {
+      setSyncAvailable(bpmA === bpmB);
+    }
+  }, [bpmA, bpmB]);
 
   return (
     <div className="App">
@@ -100,6 +107,8 @@ const App = () => {
             ready={ready}
             setReady={setReady}
             setStartInSync={setStartInSync}
+            syncAvailable={syncAvailable}
+            startInSync={startInSync}
             setLowShA={setLowShelfA}
             setMidShA={setMidShelfA}
             setHighShA={setHighShelfA}
