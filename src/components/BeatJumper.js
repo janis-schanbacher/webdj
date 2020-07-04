@@ -3,7 +3,9 @@ import { Button, Radio } from "antd";
 import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 
-const BeatJumper = ({ bufferSource, setBufferSource, startedAt, bpm, gainNode, setStartedAt, loop, audioBuffer, audioContext }) => {
+const BeatJumper = (
+  { bufferSource, setBufferSource, startedAt, bpm, gainNode, setStartedAt, loop, audioBuffer, audioContext },
+) => {
   const [moveSelection, setMoveSelection] = useState(16);
 
   const beatJump = (type) => {
@@ -46,10 +48,10 @@ const BeatJumper = ({ bufferSource, setBufferSource, startedAt, bpm, gainNode, s
         <Radio.Button value={32}>32</Radio.Button>
       </Radio.Group>
       <Button disabled={loop || !startedAt} onClick={() => beatJump(1)}>
-        <LeftCircleOutlined/>
+        <LeftCircleOutlined />
       </Button>
       <Button disabled={loop || !startedAt} onClick={() => beatJump(2)}>
-        <RightCircleOutlined/>
+        <RightCircleOutlined />
       </Button>
     </div>
   );

@@ -59,6 +59,7 @@ SongProvider.propTypes = {
   setBpm: PropTypes.func.isRequired,
   setOffset: PropTypes.func.isRequired,
   setTrackMeta: PropTypes.func.isRequired,
+  setReady: PropTypes.func.isRequired,
 };
 
 SongProvider.defaultProps = {

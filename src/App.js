@@ -69,7 +69,7 @@ const App = () => {
             offset={offsetA}
             startInSync={startInSync}
             setStartInSync={setStartInSync}
-            syncDelay={true}
+            syncDelay
             bpm={bpmA}
           />
         </Col>

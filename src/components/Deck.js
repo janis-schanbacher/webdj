@@ -47,9 +47,12 @@ Deck.propTypes = {
   metadata: PropTypes.object.isRequired,
   setTrackMeta: PropTypes.func.isRequired,
   ready: PropTypes.bool.isRequired,
-  offset: PropTypes.number,
-  startInSync: PropTypes.bool,
-  setStartInSync: PropTypes.func,
+  setReady: PropTypes.func.isRequired,
+  bpm: PropTypes.number.isRequired,
+  syncDelay: PropTypes.bool.isRequired,
+  offset: PropTypes.number.isRequired,
+  startInSync: PropTypes.bool.isRequired,
+  setStartInSync: PropTypes.func.isRequired,
 };
 
 Deck.defaultProps = {

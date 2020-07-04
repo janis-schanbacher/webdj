@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Button, Radio } from "antd";
-import { PlayCircleOutlined, PauseCircleOutlined, LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 import BeatJumper from "./BeatJumper";
 import Looper from "./Looper";
 
-const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync, setStartInSync, syncDelay, bpm }) => {
+const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync, syncDelay, bpm }) => {
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
@@ -118,7 +118,8 @@ Player.propTypes = {
   ready: PropTypes.bool.isRequired,
   offset: PropTypes.number.isRequired,
   startInSync: PropTypes.bool.isRequired,
-  setStartInSync: PropTypes.func.isRequired,
+  syncDelay: PropTypes.bool.isRequired,
+  bpm: PropTypes.number.isRequired,
 };
 
 Player.defaultProps = {
