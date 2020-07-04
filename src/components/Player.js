@@ -7,7 +7,10 @@ const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync,
   const [bufferSource, setBufferSource] = useState(null);
   const [startedAt, setStartedAt] = useState(null);
   const [pausedAt, setPausedAt] = useState(null);
-  const [moveSelection, setMoveSelection] = useState(1);
+  const [moveSelection, setMoveSelection] = useState(16);
+  const [loopSelection, setLoopSelection] = useState(16);
+  const [loopStartTime, setLoopStartTime] = useState();
+  const [loop, setLoop] = useState(false);
 
   const createGainNode = () => {
     if (audioContext == null) return null;
@@ -41,12 +44,37 @@ const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync,
       setStartedAt(syncDelay
         ? Date.now() + (offset * 1000) + 4
         : Date.now() + (offset * 1000));
-      source.start(syncDelay ? 0.4 : 0, offset);
+      source.start(syncDelay ? 0.004 : 0, offset);
     } else if (!startInSync && startedAt) {
       if (bufferSource) bufferSource.stop();
       setStartedAt(null);
     }
   }, [startInSync]);
+
+  useEffect(() => {
+    if (loop && startedAt && bufferSource) {
+      const loopTime = loopSelection * (60 / bpm);
+      const paused = Date.now() - startedAt;
+
+      bufferSource.stop();
+
+      const source = audioContext.createBufferSource();
+      setBufferSource(source);
+      source.buffer = audioBuffer;
+      source.connect(gainNode);
+
+      console.log(paused / 1000);
+
+      source.loop = true;
+      source.loopStart = paused / 1000;
+      source.loopEnd = (paused / 1000) + loopTime;
+      setStartedAt(Date.now() - startedAt);
+      setLoopStartTime(paused / 1000);
+      source.start(0, paused / 1000);
+    } else if (!loop && startedAt && bufferSource) {
+      bufferSource.loop = false;
+    }
+  }, [loop]);
 
   const beatJump = (type) => {
     if (bufferSource) {
@@ -126,6 +154,17 @@ const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync,
         <Button onClick={() => beatJump(2)}>
           <RightCircleOutlined />
         </Button>
+      </div>
+      <div>
+        <Radio.Group value={loopSelection} onChange={e => setLoopSelection(e.target.value)}>
+          <Radio.Button value={1}>1</Radio.Button>
+          <Radio.Button value={2}>2</Radio.Button>
+          <Radio.Button value={4}>4</Radio.Button>
+          <Radio.Button value={8}>8</Radio.Button>
+          <Radio.Button value={16}>16</Radio.Button>
+          <Radio.Button value={32}>32</Radio.Button>
+        </Radio.Group>
+        <Button onClick={() => setLoop(!loop)} danger={loop}>Loop</Button>
       </div>
       <Button disabled={!ready} onClick={play}>
         <PlayCircleOutlined />
