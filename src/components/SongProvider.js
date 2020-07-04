@@ -4,8 +4,9 @@ import * as mmb from "music-metadata-browser";
 
 import { setupSong } from "../lib/helper/audioHelper";
 
-const SongProvider = ({ children, audioContext, setTrack, setTrackMeta, setBpm, setOffset }) => {
+const SongProvider = ({ children, audioContext, setTrack, setTrackMeta, setBpm, setOffset, setReady }) => {
   const changeTrack = (song) => {
+    setReady(false);
     mmb.parseBlob(song, { native: true }).then((metadata) => {
       setTrackMeta(metadata.common);
     });
@@ -14,6 +15,7 @@ const SongProvider = ({ children, audioContext, setTrack, setTrackMeta, setBpm, 
       setTrack(setup.song);
       setBpm(setup.bpm);
       setOffset(setup.offset);
+      setReady(true);
     });
   };
 

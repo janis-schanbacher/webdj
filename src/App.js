@@ -65,6 +65,7 @@ const App = () => {
             setBpm={setBpmA}
             setOffset={setOffsetA}
             ready={ready}
+            setReady={setReady}
             offset={offsetA}
             startInSync={startInSync}
             setStartInSync={setStartInSync}
@@ -92,6 +93,7 @@ const App = () => {
             setBpm={setBpmB}
             setOffset={setOffsetB}
             ready={ready}
+            setReady={setReady}
             offset={offsetB}
             startInSync={startInSync}
             setStartInSync={setStartInSync}

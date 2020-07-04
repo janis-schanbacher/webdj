@@ -44,7 +44,7 @@ const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync,
       setStartedAt(syncDelay
         ? Date.now() + (offset * 1000) + 4
         : Date.now() + (offset * 1000));
-      source.start(syncDelay ? 0.004 : 0, offset);
+      source.start(syncDelay ? 0.4 : 0, offset);
     } else if (!startInSync && startedAt) {
       if (bufferSource) bufferSource.stop();
       setStartedAt(null);
@@ -54,24 +54,16 @@ const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync,
   useEffect(() => {
     if (loop && startedAt && bufferSource) {
       const loopTime = loopSelection * (60 / bpm);
-      const paused = Date.now() - startedAt;
+      const current = Date.now() - startedAt;
 
-      bufferSource.stop();
-
-      const source = audioContext.createBufferSource();
-      setBufferSource(source);
-      source.buffer = audioBuffer;
-      source.connect(gainNode);
-
-      console.log(paused / 1000);
-
-      source.loop = true;
-      source.loopStart = paused / 1000;
-      source.loopEnd = (paused / 1000) + loopTime;
-      setStartedAt(Date.now() - startedAt);
-      setLoopStartTime(paused / 1000);
-      source.start(0, paused / 1000);
+      bufferSource.loop = true;
+      bufferSource.loopStart = current / 1000;
+      bufferSource.loopEnd = (current / 1000) + loopTime;
+      setLoopStartTime(Date.now());
     } else if (!loop && startedAt && bufferSource) {
+      const timePassed = Date.now() - loopStartTime;
+      const loopTime = loopSelection * (60 / bpm) * 1000;
+      setStartedAt(startedAt + (Math.floor(timePassed / loopTime) * loopTime));
       bufferSource.loop = false;
     }
   }, [loop]);
@@ -148,23 +140,23 @@ const Player = ({ audioContext, audioBuffer, volume, ready, offset, startInSync,
           <Radio.Button value={16}>16</Radio.Button>
           <Radio.Button value={32}>32</Radio.Button>
         </Radio.Group>
-        <Button onClick={() => beatJump(1)}>
-          <LeftCircleOutlined />
+        <Button disabled={loop || !startedAt} onClick={() => beatJump(1)}>
+          <LeftCircleOutlined/>
         </Button>
-        <Button onClick={() => beatJump(2)}>
-          <RightCircleOutlined />
+        <Button disabled={loop || !startedAt} onClick={() => beatJump(2)}>
+          <RightCircleOutlined/>
         </Button>
       </div>
       <div>
         <Radio.Group value={loopSelection} onChange={e => setLoopSelection(e.target.value)}>
-          <Radio.Button value={1}>1</Radio.Button>
-          <Radio.Button value={2}>2</Radio.Button>
-          <Radio.Button value={4}>4</Radio.Button>
-          <Radio.Button value={8}>8</Radio.Button>
-          <Radio.Button value={16}>16</Radio.Button>
-          <Radio.Button value={32}>32</Radio.Button>
+          <Radio.Button disabled={loop} value={1}>1</Radio.Button>
+          <Radio.Button disabled={loop} value={2}>2</Radio.Button>
+          <Radio.Button disabled={loop} value={4}>4</Radio.Button>
+          <Radio.Button disabled={loop} value={8}>8</Radio.Button>
+          <Radio.Button disabled={loop} value={16}>16</Radio.Button>
+          <Radio.Button disabled={loop} value={32}>32</Radio.Button>
         </Radio.Group>
-        <Button onClick={() => setLoop(!loop)} danger={loop}>Loop</Button>
+        <Button disabled={!startedAt} onClick={() => setLoop(!loop)} danger={loop}>Loop</Button>
       </div>
       <Button disabled={!ready} onClick={play}>
         <PlayCircleOutlined />

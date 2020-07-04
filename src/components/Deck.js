@@ -14,6 +14,7 @@ const Deck = props => (
       setBpm={props.setBpm}
       setOffset={props.setOffset}
       setTrackMeta={props.setTrackMeta}
+      setReady={props.setReady}
     >
       <SongMetadata metadata={props.metadata} />
     </SongProvider>
