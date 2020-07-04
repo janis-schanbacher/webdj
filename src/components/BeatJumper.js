@@ -66,15 +66,22 @@ const BeatJumper = ({
 };
 
 BeatJumper.propTypes = {
-  bufferSource: PropTypes.object.isRequired,
+  bufferSource: PropTypes.object,
   setBufferSource: PropTypes.func.isRequired,
-  startedAt: PropTypes.number.isRequired,
-  bpm: PropTypes.number.isRequired,
+  startedAt: PropTypes.number,
+  bpm: PropTypes.number,
   gainNode: PropTypes.object.isRequired,
   setStartedAt: PropTypes.func.isRequired,
   loop: PropTypes.bool.isRequired,
-  audioBuffer: PropTypes.object.isRequired,
+  audioBuffer: PropTypes.object,
   audioContext: PropTypes.object.isRequired,
+};
+
+BeatJumper.defaultProps = {
+  audioBuffer: null,
+  bufferSource: null,
+  bpm: null,
+  startedAt: null,
 };
 
 export default BeatJumper;

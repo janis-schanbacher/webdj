@@ -212,7 +212,7 @@ const Player = ({
         setStartedAt={setStartedAt}
         startedAt={startedAt}
       />
-      <Button disabled={!ready} onClick={play}>
+      <Button disabled={!ready} onClick={() => play()}>
         <PlayCircleOutlined />
       </Button>
       <Button disabled={!ready} onClick={pause}>
@@ -233,10 +233,10 @@ Player.propTypes = {
   highPassIn: PropTypes.number,
   lowPassIn: PropTypes.number,
   ready: PropTypes.bool.isRequired,
-  offset: PropTypes.number.isRequired,
+  offset: PropTypes.number,
   startInSync: PropTypes.bool.isRequired,
   syncDelay: PropTypes.bool.isRequired,
-  bpm: PropTypes.number.isRequired,
+  bpm: PropTypes.number,
 };
 
 Player.defaultProps = {
@@ -247,6 +247,8 @@ Player.defaultProps = {
   lowSh: 0,
   highPassIn: 0,
   lowPassIn: 20000,
+  bpm: null,
+  offset: null,
 };
 
 export default Player;

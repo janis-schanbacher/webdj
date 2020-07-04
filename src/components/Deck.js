@@ -80,9 +80,9 @@ Deck.propTypes = {
   lowPass: PropTypes.number,
   ready: PropTypes.bool.isRequired,
   setReady: PropTypes.func.isRequired,
-  bpm: PropTypes.number.isRequired,
+  bpm: PropTypes.number,
   syncDelay: PropTypes.bool.isRequired,
-  offset: PropTypes.number.isRequired,
+  offset: PropTypes.number,
   startInSync: PropTypes.bool.isRequired,
   setStartInSync: PropTypes.func.isRequired,
 };
@@ -95,6 +95,8 @@ Deck.defaultProps = {
   lowShelf: 0,
   highPass: 0,
   lowPass: 20000,
+  bpm: null,
+  offset: null,
 };
 
 export default Deck;

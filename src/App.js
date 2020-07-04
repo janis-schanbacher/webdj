@@ -26,7 +26,7 @@ const App = () => {
   const [highShelfB, setHighShelfB] = useState(0);
   const [lowPassB, setLowPassB] = useState(0);
   const [highPassB, setHighPassB] = useState(0);
-  
+
   const [ready, setReady] = useState(false);
   const [bpmA, setBpmA] = useState();
   const [bpmB, setBpmB] = useState();

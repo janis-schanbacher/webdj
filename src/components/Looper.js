@@ -41,10 +41,16 @@ const Looper = ({ loop, setLoop, startedAt, setStartedAt, bufferSource, bpm }) =
 Looper.propTypes = {
   loop: PropTypes.bool.isRequired,
   setLoop: PropTypes.func.isRequired,
-  startedAt: PropTypes.number.isRequired,
+  startedAt: PropTypes.number,
   setStartedAt: PropTypes.func.isRequired,
-  bufferSource: PropTypes.object.isRequired,
-  bpm: PropTypes.number.isRequired,
+  bufferSource: PropTypes.object,
+  bpm: PropTypes.number,
+};
+
+Looper.defaultProps = {
+  startedAt: null,
+  bpm: null,
+  bufferSource: null,
 };
 
 export default Looper;
