@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Button } from "antd";
+import { Button, Radio } from "antd";
 import { PlayCircleOutlined, PauseCircleOutlined } from "@ant-design/icons";
 
 import Visualizer from "./Visualizer";
 import BeatJumper from "./BeatJumper";
 import Looper from "./Looper";
+import { Wrapper } from "./styles/Player.styles";
 
 const Player = ({
   audioContext,
@@ -35,6 +36,7 @@ const Player = ({
   const lowerBandThreshold = 300.0;
   const higherBandThreshold = 2000.0;
   const [loop, setLoop] = useState(false);
+  const [selection, setSelection] = useState(16);
 
   const createGainNode = () => {
     if (audioContext == null) return null;
@@ -193,25 +195,37 @@ const Player = ({
           pausedAt={pausedAt}
         />
       )}
-      <BeatJumper
-        bufferSource={bufferSource}
-        setBufferSource={setBufferSource}
-        startedAt={startedAt}
-        setStartedAt={setStartedAt}
-        bpm={bpm}
-        gainNode={gainNode}
-        audioBuffer={audioBuffer}
-        audioContext={audioContext}
-        loop={loop}
-      />
-      <Looper
-        loop={loop}
-        setLoop={setLoop}
-        bpm={bpm}
-        bufferSource={bufferSource}
-        setStartedAt={setStartedAt}
-        startedAt={startedAt}
-      />
+      <Wrapper>
+        <Radio.Group value={selection} onChange={e => setSelection(e.target.value)}>
+          <Radio.Button disabled={loop} value={1}>1</Radio.Button>
+          <Radio.Button disabled={loop} value={2}>2</Radio.Button>
+          <Radio.Button disabled={loop} value={4}>4</Radio.Button>
+          <Radio.Button disabled={loop} value={8}>8</Radio.Button>
+          <Radio.Button disabled={loop} value={16}>16</Radio.Button>
+          <Radio.Button disabled={loop} value={32}>32</Radio.Button>
+        </Radio.Group>
+        <BeatJumper
+          bufferSource={bufferSource}
+          setBufferSource={setBufferSource}
+          startedAt={startedAt}
+          setStartedAt={setStartedAt}
+          bpm={bpm}
+          gainNode={gainNode}
+          audioBuffer={audioBuffer}
+          audioContext={audioContext}
+          loop={loop}
+          selection={selection}
+        />
+        <Looper
+          loop={loop}
+          setLoop={setLoop}
+          bpm={bpm}
+          bufferSource={bufferSource}
+          setStartedAt={setStartedAt}
+          startedAt={startedAt}
+          selection={selection}
+        />
+      </Wrapper>
       <Button disabled={!ready} onClick={() => play()}>
         <PlayCircleOutlined />
       </Button>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Radio } from "antd";
+import React from "react";
+import { Button } from "antd";
 import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 
@@ -13,13 +13,13 @@ const BeatJumper = ({
   loop,
   audioBuffer,
   audioContext,
+  selection,
 }) => {
-  const [moveSelection, setMoveSelection] = useState(16);
 
   const beatJump = (type) => {
     if (bufferSource) {
       const paused = Date.now() - startedAt;
-      const timeToAdd = moveSelection * (60 / bpm);
+      const timeToAdd = selection * (60 / bpm);
 
       if (
         (type === 2 && (paused / 1000 + timeToAdd) > bufferSource.buffer.duration)
@@ -47,14 +47,6 @@ const BeatJumper = ({
 
   return (
     <div>
-      <Radio.Group value={moveSelection} onChange={e => setMoveSelection(e.target.value)}>
-        <Radio.Button value={1}>1</Radio.Button>
-        <Radio.Button value={2}>2</Radio.Button>
-        <Radio.Button value={4}>4</Radio.Button>
-        <Radio.Button value={8}>8</Radio.Button>
-        <Radio.Button value={16}>16</Radio.Button>
-        <Radio.Button value={32}>32</Radio.Button>
-      </Radio.Group>
       <Button disabled={loop || !startedAt} onClick={() => beatJump(1)}>
         <LeftCircleOutlined />
       </Button>
@@ -75,6 +67,7 @@ BeatJumper.propTypes = {
   loop: PropTypes.bool.isRequired,
   audioBuffer: PropTypes.object,
   audioContext: PropTypes.object.isRequired,
+  selection: PropTypes.number.isRequired,
 };
 
 BeatJumper.defaultProps = {
