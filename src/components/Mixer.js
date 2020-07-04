@@ -76,6 +76,7 @@ const Mixer = ({
               max={25}
               skin={skins.s12}
               clampMax={280}
+              preciseMode={false}
             />
             HIGH
           </KnobWrapper>
@@ -88,6 +89,7 @@ const Mixer = ({
               max={25}
               skin={skins.s12}
               clampMax={280}
+              preciseMode={false}
             />
             MID
           </KnobWrapper>
@@ -100,6 +102,7 @@ const Mixer = ({
               max={25}
               skin={skins.s12}
               clampMax={280}
+              preciseMode={false}
             />
             LOW
           </KnobWrapper>
@@ -112,6 +115,7 @@ const Mixer = ({
               max={20000}
               skin={skins.s12}
               clampMax={280}
+              preciseMode={false}
             />
             LowPass
           </KnobWrapper>
@@ -124,6 +128,8 @@ const Mixer = ({
               max={20000}
               skin={skins.s12}
               clampMax={280}
+              preciseMode={false}
+
             />
             HighPass
           </KnobWrapper> */}
@@ -142,6 +148,7 @@ const Mixer = ({
               max={25}
               skin={skins.s12}
               clampMax={280}
+              preciseMode={false}
             />
             HIGH
           </KnobWrapper>
@@ -154,6 +161,7 @@ const Mixer = ({
               max={25}
               skin={skins.s12}
               clampMax={280}
+              preciseMode={false}
             />
             MID
           </KnobWrapper>
@@ -166,6 +174,7 @@ const Mixer = ({
               max={25}
               skin={skins.s12}
               clampMax={280}
+              preciseMode={false}
             />
             LOW
           </KnobWrapper>
@@ -178,6 +187,7 @@ const Mixer = ({
               max={20000}
               skin={skins.s12}
               clampMax={280}
+              preciseMode={false}
             />
             LowPass
           </KnobWrapper>
@@ -190,6 +200,7 @@ const Mixer = ({
               max={20000}
               skin={skins.s12}
               clampMax={280}
+              preciseMode={false}
             />
             HighPass
           </KnobWrapper> */}
