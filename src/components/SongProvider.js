@@ -32,7 +32,12 @@ const SongProvider = ({ children, audioContext, setTrack, setTrackMeta, setBpm, 
       onDrop={(e) => {
         e.stopPropagation();
         e.preventDefault();
-        changeTrack(e.dataTransfer.files[0]);
+        if (e.dataTransfer.files[0] && e.dataTransfer.files[0].type.startsWith("audio")) {
+          changeTrack(e.dataTransfer.files[0]);
+        } else {
+          // eslint-disable-next-line no-alert
+          alert("File format not supported. Please choose an audio file");
+        }
       }}
     >
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
