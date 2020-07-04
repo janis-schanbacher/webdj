@@ -8,15 +8,21 @@ import { Wrapper } from "./styles/Deck.styles";
 
 const Deck = ({
   audioContext,
+  audioBuffer,
   setTrack,
+  metadata,
+  setTrackMeta,
+  volume,
+  isDeckA,
+  highShelf,
+  midShelf,
+  lowShelf,
+  highPass,
+  lowPass,
   setBpm,
   setOffset,
-  setTrackMeta,
   setReady,
-  metadata,
   ready,
-  audioBuffer,
-  volume,
   offset,
   startInSync,
   setStartInSync,
@@ -33,23 +39,27 @@ const Deck = ({
       setReady={setReady}
     >
       <SongMetadata metadata={metadata} />
+      {audioContext.current
+        && (
+          <Player
+            audioContext={audioContext.current}
+            audioBuffer={audioBuffer}
+            volume={volume}
+            isDeckA={isDeckA}
+            highSh={highShelf}
+            midSh={midShelf}
+            lowSh={lowShelf}
+            highPassIn={highPass}
+            lowPassIn={lowPass}
+            ready={ready}
+            offset={offset}
+            startInSync={startInSync}
+            setStartInSync={setStartInSync}
+            syncDelay={syncDelay}
+            bpm={bpm}
+          />
+        )}
     </SongProvider>
-    {
-      audioContext.current
-      && (
-        <Player
-          audioContext={audioContext.current}
-          ready={ready}
-          audioBuffer={audioBuffer}
-          volume={volume}
-          offset={offset}
-          startInSync={startInSync}
-          setStartInSync={setStartInSync}
-          syncDelay={syncDelay}
-          bpm={bpm}
-        />
-      )
-    }
   </Wrapper>
 );
 
@@ -62,6 +72,12 @@ Deck.propTypes = {
   volume: PropTypes.number,
   metadata: PropTypes.object.isRequired,
   setTrackMeta: PropTypes.func.isRequired,
+  isDeckA: PropTypes.bool.isRequired,
+  highShelf: PropTypes.number,
+  midShelf: PropTypes.number,
+  lowShelf: PropTypes.number,
+  highPass: PropTypes.number,
+  lowPass: PropTypes.number,
   ready: PropTypes.bool.isRequired,
   setReady: PropTypes.func.isRequired,
   bpm: PropTypes.number.isRequired,
@@ -74,6 +90,11 @@ Deck.propTypes = {
 Deck.defaultProps = {
   audioBuffer: null,
   volume: 1,
+  highShelf: 0,
+  midShelf: 0,
+  lowShelf: 0,
+  highPass: 0,
+  lowPass: 20000,
 };
 
 export default Deck;

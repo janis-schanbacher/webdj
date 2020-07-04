@@ -23,10 +23,15 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-rotary-knob": "^1.1.8",
+    "react-rotary-knob-skin-pack": "^1.0.2",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.2",
     "web-audio-beat-detector": "^8.0.20"
+  },
+  "resolutions": {
+    "rc-textarea": "0.2.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "dayjs": "^1.8.29"
   }
 }

@@ -39,7 +39,6 @@ const SongProvider = ({ children, audioContext, setTrack, setTrackMeta, setBpm, 
       <label className="ant-btn">
         Select Song
         <input
-          id="trackAInput"
           type="file"
           accept="audio/*"
           onChange={e => (changeTrack(e.target.files[0]))}
