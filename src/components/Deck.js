@@ -23,8 +23,7 @@ const Deck = ({
   <Wrapper>
     <SongProvider audioContext={audioContext} setTrack={setTrack} setTrackMeta={setTrackMeta}>
       <SongMetadata metadata={metadata} />
-    </SongProvider>
-    {audioContext.current
+      {audioContext.current
         && (
           <Player
             audioContext={audioContext.current}
@@ -38,6 +37,7 @@ const Deck = ({
             lowPassIn={lowPass}
           />
         )}
+    </SongProvider>
   </Wrapper>
 );
 
