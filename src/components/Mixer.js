@@ -70,10 +70,10 @@ const Mixer = ({
               defaultValue={0}
               rotateDegrees={220}
               onChange={value => setHighShA(value)}
-              min={-25}
-              max={25}
+              min={-20}
+              max={5}
               skin={skins.s12}
-              clampMax={280}
+              clampMax={175}
               preciseMode={false}
             />
             HIGH
@@ -83,10 +83,10 @@ const Mixer = ({
               defaultValue={0}
               rotateDegrees={220}
               onChange={value => setMidShA(value)}
-              min={-25}
-              max={25}
+              min={-20}
+              max={5}
               skin={skins.s12}
-              clampMax={280}
+              clampMax={175}
               preciseMode={false}
             />
             MID
@@ -96,10 +96,10 @@ const Mixer = ({
               defaultValue={0}
               rotateDegrees={220}
               onChange={value => setLowShA(value)}
-              min={-25}
-              max={25}
+              min={-20}
+              max={5}
               skin={skins.s12}
-              clampMax={280}
+              clampMax={175}
               preciseMode={false}
             />
             LOW
@@ -112,7 +112,7 @@ const Mixer = ({
               min={0}
               max={20000}
               skin={skins.s12}
-              clampMax={280}
+              clampMax={175}
               preciseMode={false}
             />
             LowPass
@@ -125,7 +125,7 @@ const Mixer = ({
               min={0}
               max={20000}
               skin={skins.s12}
-              clampMax={280}
+              clampMax={175}
               preciseMode={false}
 
             />
@@ -142,10 +142,10 @@ const Mixer = ({
               defaultValue={0}
               rotateDegrees={220}
               onChange={value => setHighShB(value)}
-              min={-25}
-              max={25}
+              min={-20}
+              max={5}
               skin={skins.s12}
-              clampMax={280}
+              clampMax={175}
               preciseMode={false}
             />
             HIGH
@@ -155,10 +155,10 @@ const Mixer = ({
               defaultValue={0}
               rotateDegrees={220}
               onChange={value => setMidShB(value)}
-              min={-25}
-              max={25}
+              min={-20}
+              max={5}
               skin={skins.s12}
-              clampMax={280}
+              clampMax={175}
               preciseMode={false}
             />
             MID
@@ -168,10 +168,10 @@ const Mixer = ({
               defaultValue={0}
               rotateDegrees={220}
               onChange={value => setLowShB(value)}
-              min={-25}
-              max={25}
+              min={-20}
+              max={5}
               skin={skins.s12}
-              clampMax={280}
+              clampMax={175}
               preciseMode={false}
             />
             LOW
@@ -184,7 +184,7 @@ const Mixer = ({
               min={0}
               max={20000}
               skin={skins.s12}
-              clampMax={280}
+              clampMax={175}
               preciseMode={false}
             />
             LowPass
@@ -197,7 +197,7 @@ const Mixer = ({
               min={0}
               max={20000}
               skin={skins.s12}
-              clampMax={280}
+              clampMax={175}
               preciseMode={false}
             />
             HighPass
