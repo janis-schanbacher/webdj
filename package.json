@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.2.1",
     "@testing-library/dom": "^7.5.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "antd": "^4.2.5",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-extra-rules": "^0.0.0-development",
@@ -18,10 +20,18 @@
     "eslint-plugin-react-hooks": "^2.5.0",
     "lodash": "^4.17.15",
     "music-metadata-browser": "^2.0.5",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-rotary-knob": "^1.1.8",
+    "react-rotary-knob-skin-pack": "^1.0.2",
     "react-scripts": "3.4.1",
-    "typescript": "^3.9.2"
+    "styled-components": "^5.1.1",
+    "typescript": "^3.9.2",
+    "web-audio-beat-detector": "^8.0.20"
+  },
+  "resolutions": {
+    "rc-textarea": "0.2.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "dayjs": "^1.8.29"
   }
 }
