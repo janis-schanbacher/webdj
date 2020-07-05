@@ -17,6 +17,8 @@ const Visualizer = ({ audioContext, audioBuffer, isDeckA, play, startedAt, pause
     const color = "#177ddc";
     ctx.fillStyle = color;
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     for (let i = 0; i < width; i += 1) {
       let min = 1.0;
       let max = -1.0;

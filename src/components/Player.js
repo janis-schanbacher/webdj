@@ -200,9 +200,11 @@ const Player = ({
    * Pause
    */
   const pause = () => {
-    if (bufferSource) bufferSource.stop();
-    setPausedAt(Date.now() - startedAt);
-    setStartedAt(null);
+    if (bufferSource && !pausedAt) {
+      bufferSource.stop();
+      setPausedAt(Date.now() - startedAt);
+      setStartedAt(null);
+    }
   };
 
   return (
@@ -252,7 +254,7 @@ const Player = ({
       <Button disabled={!ready} onClick={() => play()}>
         <PlayCircleOutlined />
       </Button>
-      <Button disabled={!ready} onClick={pause}>
+      <Button disabled={!ready || pausedAt} onClick={pause}>
         <PauseCircleOutlined />
       </Button>
     </div>
