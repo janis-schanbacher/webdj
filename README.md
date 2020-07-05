@@ -3,15 +3,16 @@ WebDj is a react web application for mixing songs. Try out the [demo](webdj.hero
 
 ## Features
 
-- Play two audio files simultaniously
+- Play two audio files simultaneously
+
 - Change the tracks by dragging an audio file on a deck or by using the "Select Song" Button
-- Controll volume using the vertical slider of a track or by using the crossfader 
+- Control volume using the vertical slider of a track or by using the crossfader 
 - 3 band equalizer (high shelf, peaking, low shelf)
 - Waveform visualization with click handler to jump to selected position
-- Progressbar that visualizes the play position
-- Play tracks (with similar bpm) synchronized
-- Jump 1/4/8/16 beats forward/backward
-- Loop 1/4/8/16 beats
+- Progress bar that visualizes the play position
+- Play tracks (with same bpm) synchronized
+- Beat Jump 1/4/8/16/32 beats forward and backward
+- Loop 1/4/8/16/32 beats
 
 ## Dependencies
 - [React](https://reactjs.org/) 
@@ -45,7 +46,7 @@ WebDj is a react web application for mixing songs. Try out the [demo](webdj.hero
   npm start
   ```
 - Open [http://localhost:3000](http://localhost:3000) in the browser.
-- Build minified, optminized build in production mode (more information see [deployment](https://facebook.github.io/create-react-app/docs/deployment))
+- Build minified, optimized build in production mode (more information see [deployment](https://facebook.github.io/create-react-app/docs/deployment))
   ```
   npm build
   ```
@@ -62,7 +63,7 @@ WebDj is a react web application for mixing songs. Try out the [demo](webdj.hero
 #### EditorConfig
 Webdj is using [EditorConfig](https://editorconfig.org) to ensure all files have the same style and encoding through different editors.
 
-A plugin might be requiered for your preferred editor to use these settings [EditorConfig](https://editorconfig.org/#download).
+A plugin might be required for your preferred editor to use these settings [EditorConfig](https://editorconfig.org/#download).
 
 #### Linting
 - Install linter extension to your editor of choice:
