@@ -10,7 +10,11 @@ const App = () => {
   const audioContext = useRef();
 
   const [trackA, setTrackA] = useState(null);
-  const [trackAMeta, setTrackAMeta] = useState({ title: "", artist: "", bpm: 0 });
+  const [trackAMeta, setTrackAMeta] = useState({
+    title: "",
+    artist: "",
+    bpm: 0,
+  });
   const [volumeA, setVolumeA] = useState(1);
   const [lowShelfA, setLowShelfA] = useState(0);
   const [midShelfA, setMidShelfA] = useState(0);
@@ -19,7 +23,11 @@ const App = () => {
   const [highPassA, setHighPassA] = useState(0);
 
   const [trackB, setTrackB] = useState(null);
-  const [trackBMeta, setTrackBMeta] = useState({ title: "", artist: "", bpm: 0 });
+  const [trackBMeta, setTrackBMeta] = useState({
+    title: "",
+    artist: "",
+    bpm: 0,
+  });
   const [volumeB, setVolumeB] = useState(1);
   const [lowShelfB, setLowShelfB] = useState(0);
   const [midShelfB, setMidShelfB] = useState(0);
@@ -40,18 +48,30 @@ const App = () => {
    */
   const setDefaultSongs = () => {
     // https://ektoplazm.com/free-music/digital-family-vol-7
-    setupSong(audioContext.current, "assets/Aerodrömme_-_Crop_Circle.mp3").then((song) => {
-      setTrackA(song.song);
-      setBpmA(song.bpm);
-      setOffsetA(song.offset);
-    }).then(setTrackAMeta({ title: "Aerodrömme_-_Crop_Circle", artist: "Aerodrömme", bpm: 128 }));
+    setupSong(audioContext.current, "assets/Aerodrömme_-_Crop_Circle.mp3")
+      .then((song) => {
+        setTrackA(song.song);
+        setBpmA(song.bpm);
+        setOffsetA(song.offset);
+        setTrackAMeta({
+          title: "Aerodrömme_-_Crop_Circle",
+          artist: "Aerodrömme",
+          bpm: song.bpm,
+        });
+      });
     // https://ektoplazm.com/free-music/flembaz-barking-soda
-    setupSong(audioContext.current, "assets/Flembaz-Barking_Soda_(Part_1).mp3").then((song) => {
-      setTrackB(song.song);
-      setBpmB(song.bpm);
-      setOffsetB(song.offset);
-      setReady(true);
-    }).then(setTrackBMeta({ title: "Flembaz-Barking_Soda_(Part_1)", artist: "Flembaz", bpm: 128 }));
+    setupSong(audioContext.current, "assets/Flembaz-Barking_Soda_(Part_1).mp3")
+      .then((song) => {
+        setTrackB(song.song);
+        setBpmB(song.bpm);
+        setOffsetB(song.offset);
+        setReady(true);
+        setTrackBMeta({
+          title: "Flembaz-Barking_Soda_(Part_1)",
+          artist: "Flembaz",
+          bpm: song.bpm,
+        });
+      });
   };
 
   useEffect(() => {
@@ -62,7 +82,7 @@ const App = () => {
     }
     audioContext.current = new (window.AudioContext || window.webkitAudioContext)();
     setDefaultSongs();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
