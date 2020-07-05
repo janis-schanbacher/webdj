@@ -153,7 +153,7 @@ const Player = ({
   }, [audioBuffer]);
 
   useEffect(() => {
-    if (startInSync && !pausedAt && !startedAt) {
+    if (startInSync && !startedAt) {
       const source = audioContext.createBufferSource();
       setBufferSource(source);
       source.buffer = audioBuffer;

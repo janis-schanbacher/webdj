@@ -54,12 +54,10 @@ const Mixer = ({
   }, [crossfade, gainB, setVolumeB]);
 
   const startSyncPlay = () => {
-    setReady(false);
     setStartInSync(true);
   };
 
   const stopSyncPlay = () => {
-    setReady(true);
     setStartInSync(false);
   };
 
@@ -225,7 +223,7 @@ const Mixer = ({
               : "not available"
         }
         >
-          <Button style={{ width: 120 }} disabled={!ready || !syncAvailable} onClick={startSyncPlay}>
+          <Button style={{ width: 120 }} disabled={startInSync || !syncAvailable} onClick={startSyncPlay}>
             <PlayCircleOutlined />
             Play in Sync
           </Button>
