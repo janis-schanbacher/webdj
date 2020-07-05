@@ -8,14 +8,13 @@ const BeatJumper = ({
   setBufferSource,
   startedAt,
   bpm,
-  gainNode,
+  highPass,
   setStartedAt,
   loop,
   audioBuffer,
   audioContext,
   selection,
 }) => {
-
   const beatJump = (type) => {
     if (bufferSource) {
       const paused = Date.now() - startedAt;
@@ -33,7 +32,7 @@ const BeatJumper = ({
       const source = audioContext.createBufferSource();
       setBufferSource(source);
       source.buffer = audioBuffer;
-      source.connect(gainNode);
+      source.connect(highPass);
 
       if (type === 2) {
         source.start(0, paused / 1000 + timeToAdd);
@@ -62,7 +61,7 @@ BeatJumper.propTypes = {
   setBufferSource: PropTypes.func.isRequired,
   startedAt: PropTypes.number,
   bpm: PropTypes.number,
-  gainNode: PropTypes.object.isRequired,
+  highPass: PropTypes.object,
   setStartedAt: PropTypes.func.isRequired,
   loop: PropTypes.bool.isRequired,
   audioBuffer: PropTypes.object,
@@ -75,6 +74,7 @@ BeatJumper.defaultProps = {
   bufferSource: null,
   bpm: null,
   startedAt: null,
+  highPass: null,
 };
 
 export default BeatJumper;

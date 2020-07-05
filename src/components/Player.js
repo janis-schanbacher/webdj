@@ -157,12 +157,12 @@ const Player = ({
       const source = audioContext.createBufferSource();
       setBufferSource(source);
       source.buffer = audioBuffer;
-      source.connect(gainNode);
+      source.connect(highPass);
 
       setStartedAt(syncDelay
-        ? Date.now() + (offset * 1000) + 4
+        ? Date.now() + (offset * 1000) + 20
         : Date.now() + (offset * 1000));
-      source.start(syncDelay ? 0.4 : 0, offset);
+      source.start(syncDelay ? 0.02 : 0, offset);
     } else if (!startInSync && startedAt) {
       if (bufferSource) bufferSource.stop();
       setStartedAt(null);
@@ -233,7 +233,7 @@ const Player = ({
           startedAt={startedAt}
           setStartedAt={setStartedAt}
           bpm={bpm}
-          gainNode={gainNode}
+          highPass={highPass}
           audioBuffer={audioBuffer}
           audioContext={audioContext}
           loop={loop}
