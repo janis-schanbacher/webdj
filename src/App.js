@@ -44,16 +44,14 @@ const App = () => {
       setTrackA(song.song);
       setBpmA(song.bpm);
       setOffsetA(song.offset);
-    });
-    setTrackAMeta({ title: "Aerodrömme_-_Crop_Circle", artist: "Aerodrömme", bpm: bpmA });
+    }).then(setTrackAMeta({ title: "Aerodrömme_-_Crop_Circle", artist: "Aerodrömme", bpm: 128 }));
     // https://ektoplazm.com/free-music/flembaz-barking-soda
     setupSong(audioContext.current, "assets/Flembaz-Barking_Soda_(Part_1).mp3").then((song) => {
       setTrackB(song.song);
       setBpmB(song.bpm);
       setOffsetB(song.offset);
       setReady(true);
-    });
-    setTrackBMeta({ title: "Flembaz-Barking_Soda_(Part_1)", artist: "Flembaz", bpm: bpmB });
+    }).then(setTrackBMeta({ title: "Flembaz-Barking_Soda_(Part_1)", artist: "Flembaz", bpm: 128 }));
   };
 
   useEffect(() => {

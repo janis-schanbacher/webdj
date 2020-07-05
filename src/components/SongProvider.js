@@ -7,8 +7,9 @@ import { setupSong } from "../lib/helper/audioHelper";
 const SongProvider = ({ children, audioContext, setTrack, setTrackMeta, setBpm, setOffset, setReady }) => {
   const changeTrack = (song) => {
     setReady(false);
+    let mData;
     mmb.parseBlob(song, { native: true }).then((metadata) => {
-      setTrackMeta(metadata.common);
+      mData = metadata.common;
     });
     const songUrl = window.URL.createObjectURL(song);
     setupSong(audioContext.current, songUrl).then((setup) => {
@@ -16,6 +17,8 @@ const SongProvider = ({ children, audioContext, setTrack, setTrackMeta, setBpm, 
       setBpm(setup.bpm);
       setOffset(setup.offset);
       setReady(true);
+      mData.bpm = setup.bpm;
+      setTrackMeta(mData);
     });
   };
 
