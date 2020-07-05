@@ -159,6 +159,7 @@ const Player = ({
       source.buffer = audioBuffer;
       source.connect(highPass);
 
+      setPausedAt(null);
       setStartedAt(syncDelay
         ? Date.now() + (offset * 1000) + 20
         : Date.now() + (offset * 1000));
