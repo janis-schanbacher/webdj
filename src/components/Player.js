@@ -44,6 +44,11 @@ const Player = ({
   };
   const [gainNode] = useState(createGainNode());
 
+  /**
+   * create 3-band-equalizer with
+   * lowShelf-, peaking-, highShelf-,
+   * lowPass- and highPass filter
+   */
   useEffect(() => {
     if (audioContext) {
       const low = audioContext.createBiquadFilter();
@@ -88,34 +93,52 @@ const Player = ({
     gainNode.connect(audioContext.destination);
   }, [audioContext.destination, gainNode]);
 
+  /**
+   * adjust volume
+   */
   useEffect(() => {
     gainNode.gain.value = volume;
   }, [gainNode.gain.value, volume]);
 
+  /**
+   * adjust highShelf-filter
+   */
   useEffect(() => {
     if (highShelf) {
       highShelf.gain.value = highSh;
     }
   }, [highSh]);
 
+  /**
+   * adjust midShelf-filter
+   */
   useEffect(() => {
     if (midShelf) {
       midShelf.gain.value = midSh;
     }
   }, [midSh]);
 
+  /**
+   * adjust lowShelf-filter
+   */
   useEffect(() => {
     if (lowShelf) {
       lowShelf.gain.value = lowSh;
     }
   }, [lowSh]);
 
+  /**
+   * adjust highPass-filter
+   */
   useEffect(() => {
     if (highPass) {
       highPass.frequency.value = highPassIn;
     }
   }, [highPassIn]);
 
+  /**
+   * adjust lowPass-filter
+   */
   useEffect(() => {
     if (lowPass) {
       lowPass.frequency.value = lowPassIn;
@@ -185,16 +208,16 @@ const Player = ({
   return (
     <div>
       {audioBuffer != null
-      && (
-        <Visualizer
-          audioContext={audioContext}
-          audioBuffer={audioBuffer}
-          isDeckA={isDeckA}
-          play={play}
-          startedAt={startedAt}
-          pausedAt={pausedAt}
-        />
-      )}
+        && (
+          <Visualizer
+            audioContext={audioContext}
+            audioBuffer={audioBuffer}
+            isDeckA={isDeckA}
+            play={play}
+            startedAt={startedAt}
+            pausedAt={pausedAt}
+          />
+        )}
       <Wrapper>
         <Radio.Group value={selection} onChange={e => setSelection(e.target.value)}>
           <Radio.Button disabled={loop} value={1}>1</Radio.Button>
