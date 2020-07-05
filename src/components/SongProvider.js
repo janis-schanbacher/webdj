@@ -16,9 +16,9 @@ const SongProvider = ({ children, audioContext, setTrack, setTrackMeta, setBpm, 
       setTrack(setup.song);
       setBpm(setup.bpm);
       setOffset(setup.offset);
-      setReady(true);
       mData.bpm = setup.bpm;
       setTrackMeta(mData);
+      setReady(true);
     });
   };
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Row, Col } from "antd";
+import * as mmb from "music-metadata-browser";
 
 import "./App.css";
 import { setupSong } from "./lib/helper/audioHelper.js";
@@ -46,31 +47,32 @@ const App = () => {
   /**
    * Set default songs which are relesed under a Creative Commons license for noncommercial usage.
    */
-  const setDefaultSongs = () => {
+  const setDefaultSongs = async () => {
     // https://ektoplazm.com/free-music/digital-family-vol-7
+
+    const blobA = await fetch("assets/Aerodrömme_-_Crop_Circle.mp3").then(r => r.blob());
+    const metaA = await mmb.parseBlob(blobA, { native: true });
     setupSong(audioContext.current, "assets/Aerodrömme_-_Crop_Circle.mp3")
       .then((song) => {
         setTrackA(song.song);
         setBpmA(song.bpm);
         setOffsetA(song.offset);
-        setTrackAMeta({
-          title: "Aerodrömme_-_Crop_Circle",
-          artist: "Aerodrömme",
-          bpm: song.bpm,
-        });
+        const meta = metaA.common;
+        meta.bpm = song.bpm;
+        setTrackAMeta(meta);
       });
     // https://ektoplazm.com/free-music/flembaz-barking-soda
+    const blobB = await fetch("assets/Flembaz-Barking_Soda_(Part_1).mp3").then(r => r.blob());
+    const metaB = await mmb.parseBlob(blobB, { native: true });
     setupSong(audioContext.current, "assets/Flembaz-Barking_Soda_(Part_1).mp3")
       .then((song) => {
         setTrackB(song.song);
         setBpmB(song.bpm);
         setOffsetB(song.offset);
+        const meta = metaB.common;
+        meta.bpm = song.bpm;
+        setTrackBMeta(meta);
         setReady(true);
-        setTrackBMeta({
-          title: "Flembaz-Barking_Soda_(Part_1)",
-          artist: "Flembaz",
-          bpm: song.bpm,
-        });
       });
   };
 
