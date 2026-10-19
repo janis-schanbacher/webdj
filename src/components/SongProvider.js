@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import * as mmb from "music-metadata-browser";
 
-import { setupSong } from "../lib/helper/audioHelper";
+import { setupSong, resolveBpm } from "../lib/helper/audioHelper";
 
 const SongProvider = ({ children, audioContext, setTrack, setTrackMeta, setBpm, setOffset, setReady }) => {
   const changeTrack = (song) => {
@@ -13,10 +13,11 @@ const SongProvider = ({ children, audioContext, setTrack, setTrackMeta, setBpm, 
     });
     const songUrl = window.URL.createObjectURL(song);
     setupSong(audioContext.current, songUrl).then((setup) => {
+      const bpm = resolveBpm(setup.bpm, mData && mData.bpm);
       setTrack(setup.song);
-      setBpm(setup.bpm);
+      setBpm(bpm);
       setOffset(setup.offset);
-      mData.bpm = setup.bpm;
+      mData.bpm = bpm;
       setTrackMeta(mData);
       setReady(true);
     });

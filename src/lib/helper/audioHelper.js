@@ -18,3 +18,11 @@ export const setupSong = async (audioContext, filePath) => {
     offset,
   };
 };
+
+export const resolveBpm = (detectedBpm, taggedBpm) => {
+  const tagged = Number(taggedBpm);
+  if (Number.isFinite(tagged) && tagged > 0) {
+    return tagged;
+  }
+  return detectedBpm;
+};

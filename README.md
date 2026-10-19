@@ -1,5 +1,5 @@
 # WebDj
-WebDj is a react web application for mixing songs. Try out the [demo](webdj.herokuapp.com/)!
+WebDj is a react web application for mixing songs. Try out the [demo](https://webdj-demo.vercel.app/)!
 
 ## Features
 
@@ -13,6 +13,15 @@ WebDj is a react web application for mixing songs. Try out the [demo](webdj.hero
 - Play tracks (with same bpm) synchronized
 - Beat Jump 1/4/8/16/32 beats forward and backward
 - Loop 1/4/8/16/32 beats
+
+## Default tracks
+
+The demo loads two tracks from Globular’s album *Entangled Everything*, released on [Ektoplazm](https://ektoplazm.com/free-music/globular-entangled-everything) under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/):
+
+- 08 — Dreamland Overflow (74 BPM)
+- 09 — Kaleidoscope Tribe (74 BPM)
+
+Music written and produced by Morison Bennett. The copies bundled with this app were re-encoded from 320 kbps to 128 kbps for web delivery. See [`public/assets/LICENSE-CC-BY-NC-SA-4.0.txt`](public/assets/LICENSE-CC-BY-NC-SA-4.0.txt) for the full license notice and attribution.
 
 ## Dependencies
 - [React](https://reactjs.org/) 

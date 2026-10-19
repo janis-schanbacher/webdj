@@ -3,9 +3,12 @@ import { Row, Col } from "antd";
 import * as mmb from "music-metadata-browser";
 
 import "./App.css";
-import { setupSong } from "./lib/helper/audioHelper.js";
+import { setupSong, resolveBpm } from "./lib/helper/audioHelper.js";
 import Deck from "./components/Deck";
 import Mixer from "./components/Mixer";
+
+const DEFAULT_TRACK_A = "assets/Globular-Dreamland_Overflow.mp3";
+const DEFAULT_TRACK_B = "assets/Globular-Kaleidoscope_Tribe.mp3";
 
 const App = () => {
   const audioContext = useRef();
@@ -45,32 +48,33 @@ const App = () => {
   const [syncAvailable, setSyncAvailable] = useState(false);
 
   /**
-   * Set default songs which are relesed under a Creative Commons license for noncommercial usage.
+   * Load default songs released under CC BY-NC-SA 4.0 for noncommercial use.
+   * License and attribution: public/assets/LICENSE-CC-BY-NC-SA-4.0.txt
+   * Source: https://ektoplazm.com/free-music/globular-entangled-everything
    */
   const setDefaultSongs = async () => {
-    // https://ektoplazm.com/free-music/digital-family-vol-7
-
-    const blobA = await fetch("assets/Aerodrömme_-_Crop_Circle.mp3").then(r => r.blob());
+    const blobA = await fetch(DEFAULT_TRACK_A).then(r => r.blob());
     const metaA = await mmb.parseBlob(blobA, { native: true });
-    setupSong(audioContext.current, "assets/Aerodrömme_-_Crop_Circle.mp3")
+    setupSong(audioContext.current, DEFAULT_TRACK_A)
       .then((song) => {
+        const bpm = resolveBpm(song.bpm, metaA.common.bpm);
         setTrackA(song.song);
-        setBpmA(song.bpm);
+        setBpmA(bpm);
         setOffsetA(song.offset);
         const meta = metaA.common;
-        meta.bpm = song.bpm;
+        meta.bpm = bpm;
         setTrackAMeta(meta);
       });
-    // https://ektoplazm.com/free-music/flembaz-barking-soda
-    const blobB = await fetch("assets/Flembaz-Barking_Soda_(Part_1).mp3").then(r => r.blob());
+    const blobB = await fetch(DEFAULT_TRACK_B).then(r => r.blob());
     const metaB = await mmb.parseBlob(blobB, { native: true });
-    setupSong(audioContext.current, "assets/Flembaz-Barking_Soda_(Part_1).mp3")
+    setupSong(audioContext.current, DEFAULT_TRACK_B)
       .then((song) => {
+        const bpm = resolveBpm(song.bpm, metaB.common.bpm);
         setTrackB(song.song);
-        setBpmB(song.bpm);
+        setBpmB(bpm);
         setOffsetB(song.offset);
         const meta = metaB.common;
-        meta.bpm = song.bpm;
+        meta.bpm = bpm;
         setTrackBMeta(meta);
         setReady(true);
       });
@@ -168,6 +172,21 @@ const App = () => {
           />
         </Col>
       </Row>
+      <p className="Credits">
+        Default tracks: “Dreamland Overflow” and “Kaleidoscope Tribe” by{" "}
+        <a href="https://ektoplazm.com/free-music/globular-entangled-everything" target="_blank" rel="noopener noreferrer">
+          Globular (Morison Bennett)
+        </a>
+        , from the album Entangled Everything. Licensed under{" "}
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">
+          CC BY-NC-SA 4.0
+        </a>
+        . Re-encoded from 320 kbps to 128 kbps for web delivery.{" "}
+        <a href="assets/LICENSE-CC-BY-NC-SA-4.0.txt" target="_blank" rel="noopener noreferrer">
+          Full license and attribution
+        </a>
+        .
+      </p>
     </div>
   );
 };
