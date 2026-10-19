@@ -1,0 +1,36 @@
+Default demo tracks
+===================
+
+The MP3 files in this folder are included as the default decks in WebDJ.
+
+Works
+-----
+- "Patience" (track 01, 143 BPM)
+- "Truth" (track 02, 143 BPM)
+
+Album: Symphonies of Life (2018)
+Artist: SubConsciousMind (R. Huber)
+All songs written and produced by R. Huber @ SCM Soundlabs (2010-2018).
+Mastered by Vince Le Barde. Cover design by R. Huber.
+
+Source
+------
+Downloaded from Ektoplazm:
+https://ektoplazm.com/free-music/subconsciousmind-symphonies-of-life
+
+License
+-------
+Released under Creative Commons Attribution-NonCommercial 4.0
+International (CC BY-NC 4.0):
+
+https://creativecommons.org/licenses/by-nc/4.0/
+
+You may share and adapt these tracks for non-commercial purposes if you
+give appropriate credit, link to the license, and indicate if changes
+were made.
+
+Changes made for WebDJ
+----------------------
+The copies bundled with this app were re-encoded from the original 320 kbps
+MP3s to 128 kbps stereo for smaller downloads. No other musical changes
+were made. These adapted copies are distributed under CC BY-NC 4.0.

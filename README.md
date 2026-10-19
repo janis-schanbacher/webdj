@@ -16,12 +16,12 @@ WebDj is a react web application for mixing songs. Try out the [demo](https://we
 
 ## Default tracks
 
-The demo loads two tracks from Globular’s album *Entangled Everything*, released on [Ektoplazm](https://ektoplazm.com/free-music/globular-entangled-everything) under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/):
+The demo loads two tracks from SubConsciousMind’s album *Symphonies of Life*, released on [Ektoplazm](https://ektoplazm.com/free-music/subconsciousmind-symphonies-of-life) under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/):
 
-- 08 — Dreamland Overflow (74 BPM)
-- 09 — Kaleidoscope Tribe (74 BPM)
+- 01 — Patience (143 BPM)
+- 02 — Truth (143 BPM)
 
-Music written and produced by Morison Bennett. The copies bundled with this app were re-encoded from 320 kbps to 128 kbps for web delivery. See [`public/assets/LICENSE-CC-BY-NC-SA-4.0.txt`](public/assets/LICENSE-CC-BY-NC-SA-4.0.txt) for the full license notice and attribution.
+Music written and produced by R. Huber. The copies bundled with this app were re-encoded from 320 kbps to 128 kbps for web delivery. See [`public/assets/LICENSE-CC-BY-NC-4.0.txt`](public/assets/LICENSE-CC-BY-NC-4.0.txt) for the full license notice and attribution.
 
 ## Dependencies
 - [React](https://reactjs.org/) 

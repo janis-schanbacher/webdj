@@ -7,8 +7,8 @@ import { setupSong, resolveBpm } from "./lib/helper/audioHelper.js";
 import Deck from "./components/Deck";
 import Mixer from "./components/Mixer";
 
-const DEFAULT_TRACK_A = "assets/Globular-Dreamland_Overflow.mp3";
-const DEFAULT_TRACK_B = "assets/Globular-Kaleidoscope_Tribe.mp3";
+const DEFAULT_TRACK_A = "assets/SubConsciousMind-Patience.mp3";
+const DEFAULT_TRACK_B = "assets/SubConsciousMind-Truth.mp3";
 
 const App = () => {
   const audioContext = useRef();
@@ -48,9 +48,9 @@ const App = () => {
   const [syncAvailable, setSyncAvailable] = useState(false);
 
   /**
-   * Load default songs released under CC BY-NC-SA 4.0 for noncommercial use.
-   * License and attribution: public/assets/LICENSE-CC-BY-NC-SA-4.0.txt
-   * Source: https://ektoplazm.com/free-music/globular-entangled-everything
+   * Load default songs released under CC BY-NC 4.0 for noncommercial use.
+   * License and attribution: public/assets/LICENSE-CC-BY-NC-4.0.txt
+   * Source: https://ektoplazm.com/free-music/subconsciousmind-symphonies-of-life
    */
   const setDefaultSongs = async () => {
     const blobA = await fetch(DEFAULT_TRACK_A).then(r => r.blob());
@@ -173,16 +173,16 @@ const App = () => {
         </Col>
       </Row>
       <p className="Credits">
-        Default tracks: “Dreamland Overflow” and “Kaleidoscope Tribe” by{" "}
-        <a href="https://ektoplazm.com/free-music/globular-entangled-everything" target="_blank" rel="noopener noreferrer">
-          Globular (Morison Bennett)
+        Default tracks: “Patience” and “Truth” by{" "}
+        <a href="https://ektoplazm.com/free-music/subconsciousmind-symphonies-of-life" target="_blank" rel="noopener noreferrer">
+          SubConsciousMind (R. Huber)
         </a>
-        , from the album Entangled Everything. Licensed under{" "}
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">
-          CC BY-NC-SA 4.0
+        , from the album Symphonies of Life. Licensed under{" "}
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">
+          CC BY-NC 4.0
         </a>
         . Re-encoded from 320 kbps to 128 kbps for web delivery.{" "}
-        <a href="assets/LICENSE-CC-BY-NC-SA-4.0.txt" target="_blank" rel="noopener noreferrer">
+        <a href="assets/LICENSE-CC-BY-NC-4.0.txt" target="_blank" rel="noopener noreferrer">
           Full license and attribution
         </a>
         .
